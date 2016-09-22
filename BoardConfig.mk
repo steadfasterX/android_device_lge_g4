@@ -5,7 +5,10 @@ TARGET_NO_BOOTLOADER := true
 # PLATFORM
 TARGET_BOARD_PLATFORM := msm8992
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno418
-TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
+# if u enable the following qseecomd will chuck! Reason is that if TARGET_PLATFORM_DEVICE_BASE is set 
+# twrp will create a directory instead of a symlink for /dev/block/bootdevice .
+# who cares? qseecomd cares!!!
+#TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
 
 # ARCHITECTURE
 TARGET_ARCH := arm64
