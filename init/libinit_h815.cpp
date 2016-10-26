@@ -34,13 +34,17 @@
 void vendor_load_properties()
 {
 	char product_name[PROP_VALUE_MAX];
-
+//We trust ro.product.name as other properties are not reliable for setting model name
   property_get("ro.product.name",product_name);
-
+// Check WHETHER we got a global device
   if(strstr(product_name,"p1_global_com"))
+  // if its global then it has to be H815
       property_set("ro.product.model","LGE-H815");
+// Check WHETHER we got a T-Mobile US device
   else if (strstr(product_name,"p1_tmo_us"))
+  //if its T-Mobile US then it has to be H811
       property_set("ro.product.model","LGE-H815");
   else
+  //The wont work on other devices so it must be H815 
       property_set("ro.product.model",product_name);
 }
