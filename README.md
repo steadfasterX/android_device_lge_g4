@@ -1,6 +1,6 @@
 ## TWRP device tree for LG G4 (H815 - international) including decryption support 
 
-The whole tree is expecting omnirom 6.0 sources and is a mix of TeamWin (base tree) + jcadduono (extended tree) + steadfaster (even more extended - omnirom 6.0 compatible, optimized kernel, and fully working decryption).
+The whole tree is expecting omnirom 6.0 sources and is a mix of TeamWin (base tree) + jcadduono (extended tree) + steadfasterX (even more extended - omnirom 6.0 compatible, optimized kernel, and fully working decryption).
 Prepare the sources from here: https://github.com/omnirom/android/tree/android-6.0
 
 Add to `.repo/local_manifests/h815.xml`:
@@ -34,7 +34,7 @@ Add  to `.repo/local_manifests/h815_kernel.xml`:
   <remote  name="bitbucket"
            fetch="https://bitbucket.org/" />
            
-  <project name="steadfastest/android_buildtools" path="vendor/sedi/prebuilt/bin" remote="github" revision="master" />
+  <project name="steadfasterX/android_buildtools" path="vendor/sedi/prebuilt/bin" remote="github" revision="master" />
   <project name="genesixx/LlamaSweet-msm8992" path="kernel/lge/msm8992" remote="github" revision="cm-13.0" />
   <project name="UBERTC/aarch64-linux-android-4.9-kernel" path="prebuilts/gcc/linux-x86/aarch64-linux-android-4.9-kernel" remote="bitbucket" revision="master" />
   <project name="xiaolu/mkbootimg_tools" path="prebuilts/devtools/mkbootimg_tools" remote="github" revision="master" />

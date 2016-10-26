@@ -1,0 +1,7 @@
+
+recovery_only(`
+  allow recovery device:dir rw_dir_perms;
+ # allow recovery self:capability mknod;
+
+# allow recovery device:chr_file create_file_perms;
+')
