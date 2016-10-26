@@ -22,7 +22,7 @@ TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := generic
 
 # BOOT IMAGE
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 user_debug=31 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 msm_rtb.filter=0x37 androidboot.hardware=p1 androidboot.selinux=permissive 
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 user_debug=31 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 msm_rtb.filter=0x37 androidboot.hardware=p1 androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x0000000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100
@@ -71,3 +71,9 @@ BOARD_SEPOLICY_DIRS += device/lge/h815/sepolicy
 # DEBUG (BOTH needed to enable logcat)
 #TWRP_INCLUDE_LOGCAT := true
 #TARGET_USES_LOGD := true
+
+# Init properties from bootloader version, ex. model info
+TARGET_UNIFIED_DEVICE := true
+TARGET_INIT_VENDOR_LIB := libinit_h815
+TARGET_RECOVERY_DEVICE_MODULES := libinit_h815
+TARGET_LIBINIT_DEFINES_FILE := $(DEVICE_TREE)/init/libinit_h815.cpp

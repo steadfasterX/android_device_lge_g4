@@ -1,2 +1,4 @@
 ro.hardware.keystore=msm8992
 persist.sys.usb.config=mtp,adb
+ro.product.model=LGE-H815
+ro.product.name=p1_global_com
