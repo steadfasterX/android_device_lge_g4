@@ -72,7 +72,7 @@ BOARD_SEPOLICY_DIRS += device/lge/h815/sepolicy
 #TWRP_INCLUDE_LOGCAT := true
 #TARGET_USES_LOGD := true
 
-# Init properties from bootloader version, ex. model info
+# CHeck whether we are running on h815 or h811 by their product name 
 TARGET_UNIFIED_DEVICE := true
 TARGET_INIT_VENDOR_LIB := libinit_h815
 TARGET_RECOVERY_DEVICE_MODULES := libinit_h815
