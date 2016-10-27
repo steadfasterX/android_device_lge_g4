@@ -43,8 +43,8 @@ void vendor_load_properties()
 // Check WHETHER we got a T-Mobile US device
   else if (strstr(product_name,"p1_tmo_us"))
   //if its T-Mobile US then it has to be H811
-      property_set("ro.product.model","LGE-H815");
+      property_set("ro.product.model","LGE-H811");
   else
-  //The wont work on other devices so it must be H815 
+  //The wont work on other devices so just let them be their own model number 
       property_set("ro.product.model",product_name);
 }
