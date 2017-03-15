@@ -1,0 +1,12 @@
+ro.hardware.keystore=msm8992
+persist.sys.usb.config=mtp,adb
+
+# H811 model
+#ro.product.device=h811
+#ro.product.model=LG-H811
+#ro.product.name=p1_tmo_us
+
+# H815 model
+#ro.product.device=h815
+#ro.product.model=LG-H815
+#ro.product.name=p1_global_com

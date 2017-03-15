@@ -1,0 +1,26 @@
+[
+	{
+		"remote":"github",
+		"repository":"CyanogenMod/android_device_qcom_common",
+		"target_path":"device/qcom/common",
+		"revision":"cm-13.0"
+	},
+	{
+		"remote":"github",
+                "repository":"xiaolu/mkbootimg_tools",
+                "target_path":"prebuilts/devtools/mkbootimg_tools",
+                "revision":"master"
+	},
+        {
+                "remote":"github",
+                "repository":"steadfasterX/kernel_lge_llamasweet",
+                "target_path":"kernel/lge/llama",
+                "revision":"cm-13.0"
+        },
+	{
+		"remote":"bitbucket",
+		"repository":"UBERTC/aarch64-linux-android-4.9-kernel",
+		"target_path":"prebuilts/gcc/linux-x86/aarch64-linux-android-4.9-kernel",
+		"revision":"master"
+	}
+]

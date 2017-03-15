@@ -14,32 +14,33 @@
 # limitations under the License.
 #
 
-# Sample: This is where we'd set a backup provider if we had one
-# $(call inherit-product, device/sample/products/backup_overlay.mk)
+# Release name
+PRODUCT_RELEASE_NAME := h815
 
-# Get the prebuilt list of APNs
-$(call inherit-product, vendor/omni/config/gsm.mk)
-
-# Inherit from the common Open Source product configuration
-$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
+$(call inherit-product, build/target/product/embedded.mk)
 
 # Inherit from our custom product configuration
 $(call inherit-product, vendor/omni/config/common.mk)
 
 PRODUCT_PACKAGES += \
-    charger_res_images \
-    charger
+	charger_res_images \
+	charger \
+	timekeep
 
+# Time Zone data for Recovery
 PRODUCT_COPY_FILES += \
-    device/lge/h815/kernel:kernel
+    bionic/libc/zoneinfo/tzdata:recovery/root/system/usr/share/zoneinfo/tzdata
 
-PRODUCT_NAME := omni_h815
+## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := h815
-PRODUCT_BRAND := LG
-PRODUCT_MODEL := G4
-PRODUCT_MANUFACTURER := LG
+PRODUCT_NAME := omni_h815
+PRODUCT_BRAND := lge
+PRODUCT_MODEL := LG-H815
+PRODUCT_MANUFACTURER := LGE
 
-# Kernel inline build
-#TARGET_KERNEL_CONFIG := h815_defconfig
-#TARGET_VARIANT_CONFIG := h815_defconfig
-#TARGET_SELINUX_CONFIG := h815_defconfig
+# Model is set via init library
+PRODUCT_SYSTEM_PROPERTY_BLACKLIST := \
+    ro.product.model \
+    ro.build.product \
+    ro.product.name \
+    ro.product.device
