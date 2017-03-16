@@ -26,10 +26,11 @@
  */
 
 #include <stdlib.h>
-
+#include <stdio.h>
 #include "vendor_init.h"
 #include "property_service.h"
 #include "util.h"
+#include <ctype.h>
 
 #define CMDLINE_MODEL        "model.name="
 #define CMDLINE_MODEL_LEN    (strlen(CMDLINE_MODEL))
