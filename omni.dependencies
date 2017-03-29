@@ -15,7 +15,7 @@
                 "remote":"github",
                 "repository":"steadfasterX/kernel_lge_llamasweet",
                 "target_path":"kernel/lge/llama",
-                "revision":"cm-13.0"
+                "revision":"cm-14.0"
         },
 	{
 		"remote":"bitbucket",
