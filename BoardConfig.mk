@@ -1,3 +1,6 @@
+# Always use rm -rf to wipe
+TW_ALWAYS_RMRF := true
+
 # LL build need this:
 ANDROID_COMMON_BUILD_MK = true
 
