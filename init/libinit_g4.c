@@ -121,6 +121,12 @@ void vendor_load_properties()
         property_set("ro.product.name","p1_vzw");
         property_set("ro.product.device","vs986");
         property_set("ro.build.product","vs986");
+    } else if (strstr(product_model,"LG-H818")) {
+        property_set("ro.product.detection","success");
+        property_set("ro.product.model","LG-H818");
+        property_set("ro.product.name","p1_global_com");
+        property_set("ro.product.device","h818");
+        property_set("ro.build.product","h818");
     // Check WHETHER we got another device
     } else {
         //The wont work on other devices so just let them be their own props
