@@ -1,3 +1,5 @@
+TW_DEVICE_VERSION := 1_FIsH-7
+
 # Always use rm -rf to wipe
 TW_ALWAYS_RMRF := true
 
@@ -88,4 +90,4 @@ BOARD_SEPOLICY_DIRS += device/lge/h815/sepolicy
 TARGET_UNIFIED_DEVICE := true
 TARGET_INIT_VENDOR_LIB := libinit_g4
 TARGET_RECOVERY_DEVICE_MODULES := libinit_g4
-TARGET_LIBINIT_DEFINES_FILE := $(DEVICE_TREE)/init/libinit_g4.cpp
+TARGET_LIBINIT_DEFINES_FILE := $(DEVICE_TREE)/init/libinit_g4.c

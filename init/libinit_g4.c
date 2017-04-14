@@ -59,6 +59,7 @@ void get_device_model(void)
     char line[2048];
     char* token;
 
+    //printf("INIT: model\n");
     // Check the cmdline to see if the serial number was supplied
     fp = fopen("/proc/cmdline", "rt");
     if (fp != NULL) {
@@ -71,6 +72,7 @@ void get_device_model(void)
                 token += CMDLINE_MODEL_LEN;
                 snprintf(product_model, DEVID_MAX, "%s", token);
                 sanitize_product_model(); // also removes newlines
+		//printf("INIT: model %s\n", product_model);
                 return;
             }
             token = strtok(NULL, " ");
@@ -82,6 +84,7 @@ void get_device_model(void)
 
 void vendor_load_properties()
 {
+    //printf("INIT: into vendor_load\n");
     char product_name[PROP_VALUE_MAX];
     char product_device[PROP_VALUE_MAX];
     char build_product[PROP_VALUE_MAX];
@@ -92,7 +95,7 @@ void vendor_load_properties()
     //if (strstr(product_device,"h815")||strstr(product_name,"p1_global_com")||strstr(product_name,"g4_global_com")) {
     if (strstr(product_model,"LG-H815")) {
          // if its global then it has to be H815
-        property_set("ro.product.model","LG-H815");
+        property_set("ro.product.model","LG-H815_sfX-RULEZ");
         property_set("ro.product.name","p1_global_com");
         property_set("ro.product.device","h815");
         property_set("ro.build.product","h815");
@@ -110,4 +113,5 @@ void vendor_load_properties()
         property_set("ro.product.device",product_device);
         property_set("ro.build.product",build_product);
     }
+//printf("INIT: vendor load end\n");
 }
