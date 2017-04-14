@@ -92,20 +92,40 @@ void vendor_load_properties()
     //if (strstr(product_device,"h815")||strstr(product_name,"p1_global_com")||strstr(product_name,"g4_global_com")) {
     if (strstr(product_model,"LG-H815")) {
          // if its global then it has to be H815
-        property_set("ro.product.model","LG-H815_sfX-RULEZ");
+        property_set("ro.product.detection","success");
+        property_set("ro.product.model","LG-H815");
         property_set("ro.product.name","p1_global_com");
         property_set("ro.product.device","h815");
         property_set("ro.build.product","h815");
     } else if (strstr(product_model,"LG-H811")) {
+        property_set("ro.product.detection","success");
         property_set("ro.product.model","LG-H811");
         property_set("ro.product.name","p1_tmo_us");
         property_set("ro.product.device","h811");
         property_set("ro.build.product","h811");
+    } else if (strstr(product_model,"LG-H812")) {
+        property_set("ro.product.detection","success");
+        property_set("ro.product.model","LG-H812");
+        property_set("ro.product.name","p1");
+        property_set("ro.product.device","h812");
+        property_set("ro.build.product","h812");
+    } else if (strstr(product_model,"LGLS991")) {
+        property_set("ro.product.detection","success");
+        property_set("ro.product.model","LGLS991");
+        property_set("ro.product.name","p1_spr_us");
+        property_set("ro.product.device","ls991");
+        property_set("ro.build.product","ls991");
+    } else if (strstr(product_model,"VS986")) {
+        property_set("ro.product.detection","success");
+        property_set("ro.product.model","VS986");
+        property_set("ro.product.name","p1_vzw");
+        property_set("ro.product.device","vs986");
+        property_set("ro.build.product","vs986");
     // Check WHETHER we got another device
     } else {
         //The wont work on other devices so just let them be their own props
-        //property_set("ro.product.model",product_model);
-        property_set("ro.product.model","DETECTFAILED");
+        property_set("ro.product.detection","unknown_model");
+        property_set("ro.product.model",product_model);
         property_set("ro.product.name",product_name);
         property_set("ro.product.device",product_device);
         property_set("ro.build.product",build_product);
