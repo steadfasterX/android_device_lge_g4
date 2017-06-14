@@ -1,12 +1,13 @@
-## TWRP device tree for LG G4 (H811 & H815 - international) including decryption support 
+## TWRP device tree for LG G4 (H811 & H815) including decryption support*
 
-This tree is a unified version which can create a build for the H811 and H815 devices.
-Just build. The detection happens when TWRP boots up.
+Decryption is supported for AOSP/CM based ROMS only (so no STOCK).
 
-The whole tree is expecting omnirom 6.0 sources and is a mix of TeamWin (base tree) + jcadduono (extended tree) + steadfasterX (even more extended - omnirom 6.0 compatible, optimized kernel, and fully working decryption).
+This tree is a unified version which can create a build for LG H811 and H815.
+The detection happens automatically when TWRP boots up.
+
 Prepare the sources from here: https://github.com/omnirom/android/tree/android-6.0
 
-Add to `.repo/local_manifests/h815.xml`:
+Add to `.repo/local_manifests/g4.xml`:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -22,14 +23,14 @@ To build:
 
 ```sh
 source build/envsetup.sh
-lunch omni_h815-eng
+lunch omni_g4-eng
 mka recoveryimage
 ```
 (the lunch command may install additional ressources)
 
 ### TWRP included kernel
 
-Add  to `.repo/local_manifests/h815_kernel.xml`:
+Add  to `.repo/local_manifests/g4_kernel.xml`:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -47,6 +48,6 @@ Then run `repo sync` to check it out.
 
 To build the kernel run (all in 1 line):
 
-`BUILDID=lge/h815 KCONF=cyanogenmod_h815_defconfig UARCH=x64 KDIR=kernel/lge/llama vendor/sedi/prebuilt/bin/build_sediROM.sh kernelonly`
+`BUILDID=lge/g4 KCONF=cyanogenmod_h815_defconfig UARCH=x64 KDIR=kernel/lge/llama vendor/sedi/prebuilt/bin/build_sediROM.sh kernelonly`
 
 
