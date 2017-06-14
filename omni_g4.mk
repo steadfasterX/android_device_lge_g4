@@ -15,7 +15,7 @@
 #
 
 # Release name
-PRODUCT_RELEASE_NAME := h815
+PRODUCT_RELEASE_NAME := g4
 
 $(call inherit-product, build/target/product/embedded.mk)
 
@@ -32,8 +32,8 @@ PRODUCT_COPY_FILES += \
     bionic/libc/zoneinfo/tzdata:recovery/root/system/usr/share/zoneinfo/tzdata
 
 ## Device identifier. This must come after all inclusions
-PRODUCT_DEVICE := h815
-PRODUCT_NAME := omni_h815
+PRODUCT_DEVICE := g4
+PRODUCT_NAME := omni_g4
 PRODUCT_BRAND := lge
 PRODUCT_MODEL := LG-H815
 PRODUCT_MANUFACTURER := LGE
