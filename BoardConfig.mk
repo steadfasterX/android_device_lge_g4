@@ -1,7 +1,7 @@
-TW_DEVICE_VERSION := 1_FIsH-build1
+TW_DEVICE_VERSION := 1_FIsH-build2
 
 # Always use rm -rf to wipe
-TW_ALWAYS_RMRF := false
+TW_ALWAYS_RMRF := true
 
 # LL build need this:
 ANDROID_COMMON_BUILD_MK = true
