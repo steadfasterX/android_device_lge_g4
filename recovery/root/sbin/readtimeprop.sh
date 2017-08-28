@@ -47,30 +47,37 @@ else
         F_LOG "mounting /data ended with <$?>"
     fi
 
-    # if we detect the proprietary time_daemon file ats_2 we start the qcom time_daemon
+    # if we are on STOCK and detect the proprietary time_daemon file ats_2 we start the qcom time_daemon
     # but when not we assume the open source timekeep daemon and starting that instead
-    # That also means: 
-    # When you switch between e.g. CM and STOCK ROMs you may get not the expected results.
-    # The reason is that you have to do a factory reset after switching the ROM base
-    # OR delete either: 
-    #    - /data/system/time/ats_2 or /data/time/ats_2 (when switching from STOCK to CM/AOSP/..) 
     # OR:
     #    - /data/property/persist.sys.timeadjust (when switching from CM/AOSP/... to STOCK)
-    if [ -r /data/time/ats_2 ]||[ -r /data/system/time/ats_2 ];then
+    if [ "$ROMTYPE" == "stock" ];then
+	F_LOG "I detected a STOCK or STOCK based ROM!"
+        F_LOG "if you feel this is an error you may have and unidentified custom ROM flavor installed!"
+	F_LOG "Paste this line in the TWRP thread: flavor = $(getprop ro.build.flavor)"
+      if [ -r /data/time/ats_2 ]||[ -r /data/system/time/ats_2 ];then
+	# we are on STOCK so we do not need custom ROM time file
+        [ -f /data/property/persist.sys.timeadjust ] && rm /data/property/persist.sys.timeadjust && F_LOG "We are on a $ROMTYPE ROM so deleted unneeded CUSTOM ROM file: /data/property/persist.sys.timeadjust"
         F_LOG "proprietary qcom time-file detected! Will start qcom time_daemon instead of timekeep!"
-        F_LOG "if you feel this is an error you may have switched from STOCK to CM/AOSP without wiping data. Delete /data/system/time/ats_2 or /data/time/ats_2 manually if that is the case"
-        # trigger time_daemon
-        setprop twrp.timedaemon 1
+	# trigger time_daemon
+	setprop twrp.timedaemon 1
+      else
+	F_ELOG "We expected $ROMTYPE ROM but proprietary qcom time files missing! Cannot set time!"
+      fi
     else
+	# when coming from STOCK those are obsolete!
+	[ -f /data/time/ats_2 ]&& rm /data/time/ats_2 && F_LOG "We are on a $ROMTYPE ROM so deleted unneeded STOCK ROM file: /data/time/ats_2"
+	[ -f /data/system/time/ats_2 ] && rm /data/system/time/ats_2 && F_LOG "We are on a $ROMTYPE ROM so deleted unneeded STOCK ROM file: /data/system/time/ats_2"
+        
         if [ -r /data/property/persist.sys.timeadjust ];then
             setprop persist.sys.timeadjust $(cat /data/property/persist.sys.timeadjust)
             F_LOG "setting persist.sys.timeadjust ended with $?"
             # trigger timekeep daemon
             setprop twrp.timeadjusted 1
         else
-            F_ELOG "/data/property/persist.sys.timeadjust not accessible!"
+            F_ELOG "/data/property/persist.sys.timeadjust not accessible! Cannot set time!"
         fi
      fi
 fi
-F_LOG "timeadjust after setprop: >$(getprop persist.sys.timeadjust)<"
+[ "$ROMTYPE" == "custom" ] && F_LOG "timeadjust property: >$(getprop persist.sys.timeadjust)<"
 F_LOG "$0 finished"
