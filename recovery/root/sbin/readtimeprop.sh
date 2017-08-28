@@ -14,6 +14,14 @@ F_ELOG(){
 TAG="READTIME"
 F_LOG "Starting $0"
 F_LOG "timeadjust before setprop: >$(getprop persist.sys.timeadjust)<"
+
+# identify ROM type
+getprop ro.build.flavor|egrep -i '(aosp|aicp|lineage|cyanogenmod|^cm_|^omni_)' >> /dev/null
+if [ $? -eq 0 ];then ROMTYPE=custom; else ROMTYPE=stock; fi
+
+F_LOG "ROM type detected: $ROMTYPE"
+[ -z "$ROMTYPE" ] && F_ELOG "ROM TYPE cannot be detected!!! Flavor: $(getprop ro.build.flavor)"
+
 if [ -r /data/property/persist.sys.timeadjust ];then
     setprop persist.sys.timeadjust $(cat /data/property/persist.sys.timeadjust)
     F_LOG "setting persist.sys.timeadjust ended with $?"
