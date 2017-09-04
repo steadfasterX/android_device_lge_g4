@@ -2,6 +2,8 @@
 # workaround script by steadfasterX to ensure time is correct
 
 LOG=/tmp/recovery.log
+DEBUG=0
+
 F_LOG(){
    MSG="$1"
    echo "I:$TAG: $(date +%F_%T) - $MSG" >> $LOG
@@ -19,8 +21,8 @@ F_LOG "timeadjust before setprop: >$(getprop persist.sys.timeadjust)<"
 getprop ro.build.flavor|egrep -i '(aosp|aicp|lineage|cyanogenmod|^cm_|^omni_)' >> /dev/null
 if [ $? -eq 0 ];then ROMTYPE=custom; else ROMTYPE=stock; fi
 
-F_LOG "ROM type detected: $ROMTYPE"
-[ -z "$ROMTYPE" ] && F_ELOG "ROM TYPE cannot be detected!!! Flavor: $(getprop ro.build.flavor)"
+F_LOG "ROM type detected: $ROMTYPE (flavor: $SYSPROP)"
+[ -z "$ROMTYPE" ] && F_ELOG "ROM TYPE cannot be detected!!! Flavor: $SYSPROP"
 
 if [ -r /data/property/persist.sys.timeadjust ];then
     setprop persist.sys.timeadjust $(cat /data/property/persist.sys.timeadjust)
@@ -47,6 +49,12 @@ else
         F_LOG "mounting /data ended with <$?>"
     fi
 
+    [ $DEBUG -eq 1 ] && F_LOG "/data/time content: $(ls -la /data/time)"
+    [ $DEBUG -eq 1 ] && F_LOG "/data/system/time content: $(ls -la /data/system/time)"
+
+    # clean the kernel buffer to see only the time related stuff
+    [ $DEBUG -eq 1 ] && dmesg -c >> /dev/null
+     
     # if we are on STOCK and detect the proprietary time_daemon file ats_2 we start the qcom time_daemon
     # but when not we assume the open source timekeep daemon and starting that instead
     # OR:
@@ -63,6 +71,7 @@ else
 	setprop twrp.timedaemon 1
       else
 	F_ELOG "We expected $ROMTYPE ROM but proprietary qcom time files missing! Cannot set time!"
+	    F_ELOG "$(ls -la /data/time/ /data/system/time/)"
       fi
     else
 	# when coming from STOCK those are obsolete!
@@ -80,4 +89,6 @@ else
      fi
 fi
 [ "$ROMTYPE" == "custom" ] && F_LOG "timeadjust property: >$(getprop persist.sys.timeadjust)<"
+[ $DEBUG -eq 1 ] && F_LOG "$(dmesg)"
+
 F_LOG "$0 finished"
