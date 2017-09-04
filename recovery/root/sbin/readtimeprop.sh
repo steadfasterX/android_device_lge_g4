@@ -18,8 +18,19 @@ F_LOG "Starting $0"
 F_LOG "timeadjust before setprop: >$(getprop persist.sys.timeadjust)<"
 
 # identify ROM type
-getprop ro.build.flavor|egrep -i '(aosp|aicp|lineage|cyanogenmod|^cm_|^omni_)' >> /dev/null
+F_LOG "system mount:"
+mkdir /tempsys
+mount -t ext4 /dev/block/platform/f9824900.sdhci/by-name/system /tempsys 2>&1 >> $LOG || mount -t f2fs /dev/block/platform/f9824900.sdhci/by-name/system /tempsys 2>&1 >> $LOG
+F_LOG "$(mount | grep tempsys)"
+F_LOG "$(ls -la /tempsys/build.prop)"
+[ ! -r /tempsys/build.prop ] && F_ELOG "cannot determine installed OS! time will may not work properly.. falling back to STOCK.."
+[ $DEBUG -eq 1 ] && [ -r /tempsys/build.prop ] && F_LOG "your build entries in yours ROM build.prop: $(grep build /tempsys/build.prop)"
+SYSPROP=$(grep "ro.build.flavor" /tempsys/build.prop|cut -d "=" -f 2)
+echo "$SYSPROP" | egrep -i '(aosp|aicp|lineage|cyanogenmod|^cm_|^omni_)' >> /dev/null
 if [ $? -eq 0 ];then ROMTYPE=custom; else ROMTYPE=stock; fi
+F_LOG "system umount"
+umount /tempsys 2>&1 >> $LOG
+rm -Rf /tempsys
 
 F_LOG "ROM type detected: $ROMTYPE (flavor: $SYSPROP)"
 [ -z "$ROMTYPE" ] && F_ELOG "ROM TYPE cannot be detected!!! Flavor: $SYSPROP"
