@@ -71,23 +71,25 @@ else
     # OR:
     #    - /data/property/persist.sys.timeadjust (when switching from CM/AOSP/... to STOCK)
     if [ "$ROMTYPE" == "stock" ];then
-	F_LOG "I detected a STOCK or STOCK based ROM!"
+	F_LOG "STOCK or STOCK based ROM!"
         F_LOG "if you feel this is an error you may have and unidentified custom ROM flavor installed!"
-	F_LOG "Paste this line in the TWRP thread: flavor = $(getprop ro.build.flavor)"
-      if [ -r /data/time/ats_2 ]||[ -r /data/system/time/ats_2 ];then
-	# we are on STOCK so we do not need custom ROM time file
-        [ -f /data/property/persist.sys.timeadjust ] && rm /data/property/persist.sys.timeadjust && F_LOG "We are on a $ROMTYPE ROM so deleted unneeded CUSTOM ROM file: /data/property/persist.sys.timeadjust"
-        F_LOG "proprietary qcom time-file detected! Will start qcom time_daemon instead of timekeep!"
-	# trigger time_daemon
-	setprop twrp.timedaemon 1
-      else
-	F_ELOG "We expected $ROMTYPE ROM but proprietary qcom time files missing! Cannot set time!"
+	F_LOG "Paste this line in the TWRP thread: flavor = $SYSPROP"
+      	if [ -r /data/time/ats_1 ]||[ -r /data/time/ats_2 ]||[ -r /data/system/time/ats_1 ]||[ -r /data/system/time/ats_2 ];then
+	    # we are on STOCK so we do not need custom ROM time file
+            [ -f /data/property/persist.sys.timeadjust ] && rm /data/property/persist.sys.timeadjust && F_LOG "We are on a $ROMTYPE ROM so deleted unneeded CUSTOM ROM file: /data/property/persist.sys.timeadjust"
+            F_LOG "proprietary qcom time-file detected! Will start qcom time_daemon instead of timekeep!"
+	    # trigger time_daemon
+	    setprop twrp.timedaemon 1
+      	else
+	    F_ELOG "We expected $ROMTYPE ROM but proprietary qcom time files missing! Cannot set time!"
 	    F_ELOG "$(ls -la /data/time/ /data/system/time/)"
-      fi
+      	fi
     else
 	# when coming from STOCK those are obsolete!
-	[ -f /data/time/ats_2 ]&& rm /data/time/ats_2 && F_LOG "We are on a $ROMTYPE ROM so deleted unneeded STOCK ROM file: /data/time/ats_2"
-	[ -f /data/system/time/ats_2 ] && rm /data/system/time/ats_2 && F_LOG "We are on a $ROMTYPE ROM so deleted unneeded STOCK ROM file: /data/system/time/ats_2"
+	[ -f /data/time/ats_1 ]&& rm /data/time/ats_* && F_LOG "atsa1: We are on a $ROMTYPE ROM so deleted unneeded STOCK ROM file: /data/time/ats_*"
+	[ -f /data/time/ats_2 ]&& rm /data/time/ats_* && F_LOG "atsa2: We are on a $ROMTYPE ROM so deleted unneeded STOCK ROM file: /data/time/ats_*"
+	[ -f /data/system/time/ats_1 ] && rm /data/system/time/ats_* && F_LOG "atsb1: We are on a $ROMTYPE ROM so deleted unneeded STOCK ROM file: /data/system/time/ats_*"
+	[ -f /data/system/time/ats_2 ] && rm /data/system/time/ats_* && F_LOG "atsb2: We are on a $ROMTYPE ROM so deleted unneeded STOCK ROM file: /data/system/time/ats_*"
         
         if [ -r /data/property/persist.sys.timeadjust ];then
             setprop persist.sys.timeadjust $(cat /data/property/persist.sys.timeadjust)
