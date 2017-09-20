@@ -24,3 +24,5 @@
 /bl6		emmc    /dev/block/platform/f9824900.sdhci/by-name/tz        	flags=backup=1;subpartitionof=/bl
 /bl7		emmc    /dev/block/platform/f9824900.sdhci/by-name/hyp        	flags=backup=1;subpartitionof=/bl
 /bl8		emmc    /dev/block/platform/f9824900.sdhci/by-name/sbl1        	flags=backup=1;subpartitionof=/bl
+/carrier	emmc    /dev/block/platform/f9824900.sdhci/by-name/carrier      flags=backup=1;display="Carrier"
+/cust		emmc    /dev/block/platform/f9824900.sdhci/by-name/cust      	flags=backup=1;display="Carrier"
