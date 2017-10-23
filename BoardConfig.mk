@@ -55,11 +55,15 @@ TW_EXCLUDE_SUPERSU := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
 
+ifeq ($(JENKINS_TARGET),stock)
 # ignore a factory reset when using the phone's factory reset screen
 # instead just open TWRP - even when /misc partition is used!
 # as long as /misc is mounted on /grow and the ROM doing the same all is fine
 # WITHOUT setting this to true
-#TW_IGNORE_MISC_WIPE_DATA := true
+# STOCK on g4 needs this to be set otherwise a factory reset will result in 
+# a TWRP bootloop
+TW_IGNORE_MISC_WIPE_DATA := true
+endif 
 
 # when double tap is enabled this has to be set to FALSE otherwise when
 # an usb cable is connected the screen is blank for several minutes
