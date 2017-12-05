@@ -57,10 +57,7 @@ RECOVERY_GRAPHICS_FORCE_USE_LINELENGTH := true
 # when double tap is enabled this has to be set to FALSE otherwise when
 # an usb cable is connected the screen is blank for several minutes
 TW_SCREEN_BLANK_ON_BOOT := false
-
-# QCOM BSP
-TARGET_USES_QCOM_BSP := true
-TW_TARGET_USES_QCOM_BSP := true
+#TW_TARGET_USES_QCOM_BSP := true
 
 # SPECIAL FLAGS
 ifeq ($(JENKINS_TARGET),stock)
