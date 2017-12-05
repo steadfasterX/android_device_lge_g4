@@ -45,15 +45,24 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 RECOVERY_SDCARD_ON_DATA := true
 BOARD_HAS_NO_REAL_SDCARD := true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/soc.0/f9200000.ssusb/f9200000.dwc3/gadget/lun%d/file"
-
-# TWRP FLAGS
-TW_THEME := portrait_hdpi
-TW_DEFAULT_BRIGHTNESS := 162
 TW_NO_USB_STORAGE := true
 TW_EXCLUDE_SUPERSU := true
-TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-RECOVERY_GRAPHICS_USE_LINELENGTH := true
+TW_NEW_ION_HEAP := false
 
+# GRAPHIC FLAGS
+TW_THEME := portrait_hdpi
+TW_DEFAULT_BRIGHTNESS := 162
+TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+RECOVERY_GRAPHICS_FORCE_USE_LINELENGTH := true
+# when double tap is enabled this has to be set to FALSE otherwise when
+# an usb cable is connected the screen is blank for several minutes
+TW_SCREEN_BLANK_ON_BOOT := false
+
+# QCOM BSP
+TARGET_USES_QCOM_BSP := true
+TW_TARGET_USES_QCOM_BSP := true
+
+# SPECIAL FLAGS
 ifeq ($(JENKINS_TARGET),stock)
 # ignore a factory reset when using the phone's factory reset screen
 # instead just open TWRP - even when /misc partition is used!
@@ -64,16 +73,11 @@ ifeq ($(JENKINS_TARGET),stock)
 TW_IGNORE_MISC_WIPE_DATA := true
 endif 
 
-# when double tap is enabled this has to be set to FALSE otherwise when
-# an usb cable is connected the screen is blank for several minutes
-TW_SCREEN_BLANK_ON_BOOT := false
-#TW_TARGET_USES_QCOM_BSP := true
-
 # HW CRYPTO
 TW_INCLUDE_CRYPTO := true
 TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 
-##### SEPOLICY stuff
+# SEPOLICY stuff
 # https://android.googlesource.com/platform/external/sepolicy/+/marshmallow-release/README
 BOARD_SEPOLICY_DIRS += device/lge/g4/sepolicy
 
