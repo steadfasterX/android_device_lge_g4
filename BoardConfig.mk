@@ -53,7 +53,6 @@ TW_NEW_ION_HEAP := true
 TW_THEME := portrait_hdpi
 TW_DEFAULT_BRIGHTNESS := 162
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-RECOVERY_GRAPHICS_FORCE_USE_LINELENGTH := true
 # when double tap is enabled this has to be set to FALSE otherwise when
 # an usb cable is connected the screen is blank for several minutes
 TW_SCREEN_BLANK_ON_BOOT := false
