@@ -47,7 +47,7 @@ BOARD_HAS_NO_REAL_SDCARD := true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/soc.0/f9200000.ssusb/f9200000.dwc3/gadget/lun%d/file"
 TW_NO_USB_STORAGE := true
 TW_EXCLUDE_SUPERSU := true
-TW_NEW_ION_HEAP := false
+TW_NEW_ION_HEAP := true
 
 # GRAPHIC FLAGS
 TW_THEME := portrait_hdpi
