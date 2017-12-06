@@ -1,0 +1,5 @@
+# encryption support
+service sys_qseecomd /sbin/qseecomd
+    oneshot
+    disabled
+    seclabel u:object_r:tee_exec:s0
