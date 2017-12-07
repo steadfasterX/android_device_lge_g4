@@ -49,6 +49,11 @@ TW_NO_USB_STORAGE := true
 TW_EXCLUDE_SUPERSU := true
 TW_NEW_ION_HEAP := true
 
+# TIME
+# avoid TWRP's try to fix the time. time is handled by readtimeprop.sh
+# and TWRP will reset the already fixed time when enabled
+TARGET_RECOVERY_QCOM_RTC_FIX := false
+
 # GRAPHIC FLAGS
 TW_THEME := portrait_hdpi
 TW_DEFAULT_BRIGHTNESS := 162
