@@ -78,7 +78,7 @@ TW_SCREEN_BLANK_ON_BOOT := false
 TARGET_HW_DISK_ENCRYPTION := true
 TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 
-##### SEPOLICY stuff
+# SEPOLICY stuff
 # https://android.googlesource.com/platform/external/sepolicy/+/marshmallow-release/README
 BOARD_SEPOLICY_DIRS += device/lge/g4/sepolicy
 
@@ -86,7 +86,7 @@ BOARD_SEPOLICY_DIRS += device/lge/g4/sepolicy
 #TWRP_INCLUDE_LOGCAT := true
 #TARGET_USES_LOGD := true
 
-# CHeck whether we are running on h815 or h811 by their product name 
+# Unify all g4 models
 TARGET_UNIFIED_DEVICE := true
 TARGET_INIT_VENDOR_LIB := libinit_g4
 TARGET_RECOVERY_DEVICE_MODULES := libinit_g4
