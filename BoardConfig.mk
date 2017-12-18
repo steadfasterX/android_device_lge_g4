@@ -64,17 +64,14 @@ TW_SCREEN_BLANK_ON_BOOT := false
 #TW_TARGET_USES_QCOM_BSP := true
 
 # SPECIAL FLAGS
-ifeq ($(JENKINS_TARGET),stock)
 # ignore a factory reset when using the phone's factory reset screen
-# instead just open TWRP - even when /misc partition is used!
-# as long as /misc is mounted on /grow and the ROM doing the same all is fine
-# WITHOUT setting this to true
-# STOCK on g4 needs this to be set otherwise a factory reset will result in 
-# a TWRP bootloop
+# or since N (at least) when using <fastboot erase userdata> which set the same
+# https://gerrit.omnirom.org/#/c/20750/
+# this flag requires to build TWRP in branch 7.1 or later
+# DO NOT SET TO FALSE WHEN YOU DO NOT KNOW WHAT YOU'RE DOING!
 TW_IGNORE_MISC_WIPE_DATA := true
-endif 
 
-# HW CRYPTO
+# CRYPTO
 TW_INCLUDE_CRYPTO := true
 TW_CRYPTO_USE_SYSTEM_VOLD := qseecomd
 TARGET_KEYMASTER_WAIT_FOR_QSEE := true
