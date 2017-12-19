@@ -1,4 +1,10 @@
 [
+        {
+                "remote":"aosp",
+                "target_path":"hardware/libhardware",
+                "repository":"platform/hardware/libhardware",
+                "revision":"refs/tags/android-6.0.1_r81"
+        },
 	{
 		"remote":"github",
 		"repository":"TeamWin/android_device_qcom_common",
