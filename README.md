@@ -1,23 +1,24 @@
-## TWRP device tree for LG G4 (H811 & H815) including decryption support*
+## TWRP device tree for LG G4 (any model) including decryption support*
 
 Decryption is supported for AOSP/CM based ROMS only (so no STOCK).
 
-This tree is a unified version which can create a build for LG H811 and H815.
+This tree is a unified version which can create a build for ANY LG G4 device (even locked ones).
 The detection happens automatically when TWRP boots up.
 
-Prepare the sources from here: https://github.com/omnirom/android/tree/android-6.0
+This version is made and prepared to be used in android FIsH ( https://bit.do/FISHatXDA )
 
-Add to `.repo/local_manifests/g4.xml`:
+Prepare the sources from here: https://github.com/omnirom/android/tree/android-5.1
+
+Add to `.repo/local_manifests/remove.xml`:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
-  <project name="android_device_qcom_sepolicy" path="device/qcom/sepolicy" remote="omnirom" revision="android-6.0" />
-  <project name="CyanogenMod/android_device_qcom_common" path="device/qcom/common" remote="github" revision="cm-13.0" />
+  <remove-project name="android_hardware_libhardware" />
 </manifest>
 ```
 
-Then run `repo sync` to check it out.
+Then run `repo sync -c --force-sync` to check it out.
 
 To build:
 
@@ -26,7 +27,15 @@ source build/envsetup.sh
 lunch omni_g4-eng
 mka recoveryimage
 ```
-(the lunch command may install additional ressources)
+(the lunch command will download additional ressources)
+
+
+### TWRP in FIsH
+
+All details about how to cook the FIsH and complete the whole image is described here:
+
+https://bit.do/FISHatXDA 
+
 
 ### TWRP included kernel
 
