@@ -54,7 +54,12 @@ RECOVERY_SDCARD_ON_DATA := true
 BOARD_HAS_NO_REAL_SDCARD := true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/soc.0/f9200000.ssusb/f9200000.dwc3/gadget/lun%d/file"
 
-# TWRP FLAGS
+# TIME
+# avoid TWRP's try to fix the time. time is handled by readtimeprop.sh
+# and TWRP will reset the already fixed time when enabled
+TARGET_RECOVERY_QCOM_RTC_FIX := false
+
+# GRAPHIC FLAGS
 TW_THEME := portrait_hdpi
 TW_DEFAULT_BRIGHTNESS := 162
 TW_NO_USB_STORAGE := true
@@ -63,11 +68,13 @@ TW_EXCLUDE_SUPERSU := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
 
+# SPECIAL FLAGS
 # ignore a factory reset when using the phone's factory reset screen
-# instead just open TWRP - even when /misc partition is used!
-# as long as /misc is mounted on /grow and the ROM doing the same all is fine
-# WITHOUT setting this to true
-#TW_IGNORE_MISC_WIPE_DATA := true
+# or since N (at least) when using <fastboot erase userdata> which set the same
+# https://gerrit.omnirom.org/#/c/20750/
+# this flag requires to build TWRP in branch 7.1 or later
+# DO NOT SET TO FALSE WHEN YOU DO NOT KNOW WHAT YOU'RE DOING!
+TW_IGNORE_MISC_WIPE_DATA := true
 
 # when double tap is enabled this has to be set to FALSE otherwise when
 # an usb cable is connected the screen is blank for several minutes
