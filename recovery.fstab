@@ -12,10 +12,13 @@
 /efs3		emmc	/dev/block/bootdevice/by-name/fsg		flags=backup=1;subpartitionof=/efs1
 /external_sd	vfat	/dev/block/mmcblk1p1 /dev/block/mmcblk1			flags=display="Micro SDCard";storage;wipeingui;removable;encryptable=/dev/block/bootdevice/by-name/encrypt
 /usb-otg	vfat	/dev/block/sda1 /dev/block/sda				flags=display="USB-OTG";storage;wipeingui;removable
-/misc		emmc	/dev/block/bootdevice/by-name/grow
-/rmisc		emmc    /dev/block/bootdevice/by-name/misc		flags=backup=1;display="BL unlock state"
-/persistent	emmc	/dev/block/bootdevice/by-name/persistent   flags=backup=1;subpartitionof=/rmisc
-/drm		emmc	/dev/block/bootdevice/by-name/drm    	flags=backup=1;subpartitionof=/rmisc
+/misc		emmc    /dev/block/bootdevice/by-name/misc		flags=backup=1;display="BL unlock state"
+/rmisc		emmc    /dev/block/bootdevice/by-name/misc		flags=backup=1;subpartitionof=/misc
+/devinfo	emmc    /dev/block/bootdevice/by-name/devinfo		flags=backup=1;subpartitionof=/misc
+/persist	emmc    /dev/block/bootdevice/by-name/persist		flags=backup=1;subpartitionof=/misc
+/persistent	emmc    /dev/block/bootdevice/by-name/persistent		flags=backup=1;subpartitionof=/misc
+/drm		emmc    /dev/block/bootdevice/by-name/drm		flags=backup=1;subpartitionof=/misc
+/sns		emmc    /dev/block/bootdevice/by-name/snd		flags=backup=1;subpartitionof=/misc
 /bl		emmc 	/dev/block/bootdevice/by-name/aboot        flags=backup=1;display="Bootloader"
 /bl2		emmc    /dev/block/bootdevice/by-name/rpm        	flags=backup=1;subpartitionof=/bl
 /bl3		emmc    /dev/block/bootdevice/by-name/pmic        	flags=backup=1;subpartitionof=/bl
