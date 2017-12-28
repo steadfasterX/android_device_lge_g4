@@ -22,8 +22,13 @@
 #define CMDLINE_MODEL        "model.name="
 #define CMDLINE_MODEL_LEN    (strlen(CMDLINE_MODEL))
 #define DEVID_MAX 10
+#define CMDLINE_USU          "slub_debug="
+#define CMDLINE_USU_LEN      (strlen(CMDLINE_USU))
+#define USU_MAX 10
+
 
 char product_model[PROP_VALUE_MAX];
+char usu_detect[PROP_VALUE_MAX];
 
 void sanitize_product_model(void) {
         const char* whitelist ="-._";
@@ -35,6 +40,21 @@ void sanitize_product_model(void) {
         while (*c) {
                 if (isalnum(*c) || strchr(whitelist, *c))
                         strncat(product_model, c, 1);
+                c++;
+        }
+        return;
+}
+
+void sanitize_usu_detect(void) {
+        const char* whitelist ="-._";
+        char str[USU_MAX];
+        char* c = str;
+
+        snprintf(str, USU_MAX, "%s", usu_detect);
+        memset(usu_detect, 0, strlen(usu_detect));
+        while (*c) {
+                if (isalnum(*c) || strchr(whitelist, *c))
+                        strncat(usu_detect, c, 1);
                 c++;
         }
         return;
@@ -67,6 +87,35 @@ void get_device_model(void)
      return;
 }
 
+void get_usu(void)
+{
+    FILE *fp;
+    char line[2048];
+    char* token;
+
+    // Check the cmdline to see if the serial number was supplied
+    fp = fopen("/proc/cmdline", "rt");
+    if (fp != NULL) {
+        fgets(line, sizeof(line), fp);
+        fclose(fp); // cmdline is only one line long
+
+        token = strtok(line, " ");
+        while (token) {
+            if (memcmp(token, CMDLINE_USU, CMDLINE_USU_LEN) == 0) {
+                //token += CMDLINE_USU_LEN;
+                //snprintf(usu_detect, USU_MAX, "%s", token);
+                //sanitize_usu_detect(); // also removes newlines
+                strcpy(usu_detect, "UsU_unlocked"); // UsU found
+                return;
+            }
+            token = strtok(NULL, " ");
+        }
+     }
+     strcpy(usu_detect, "officially_unlocked"); // no UsU found
+     return;
+}
+
+
 void vendor_load_properties()
 {
     char product_name[PROP_VALUE_MAX];
@@ -74,56 +123,35 @@ void vendor_load_properties()
     char build_product[PROP_VALUE_MAX];
 
     get_device_model();
+    get_usu();
 
     // Check what device types we have and set their prop accordingly
-    //if (strstr(product_device,"h815")||strstr(product_name,"p1_global_com")||strstr(product_name,"g4_global_com")) {
     if (strstr(product_model,"LG-H815")) {
-         // if its global then it has to be H815
         property_set("ro.product.detection","success");
+        property_set("ro.device.unlockmode",usu_detect);
         property_set("ro.product.model","LG-H815");
         property_set("ro.product.name","p1_global_com");
         property_set("ro.product.device","h815");
         property_set("ro.build.product","h815");
-    } else if (strstr(product_model,"LG-H810")) {
-        property_set("ro.product.detection","success");
-        property_set("ro.product.model","LG-H810");
-        property_set("ro.product.name",product_name);
-        property_set("ro.product.device","h810");
-        property_set("ro.build.product","h810");
     } else if (strstr(product_model,"LG-H811")) {
         property_set("ro.product.detection","success");
+        property_set("ro.device.unlockmode",usu_detect);
         property_set("ro.product.model","LG-H811");
         property_set("ro.product.name","p1_tmo_us");
         property_set("ro.product.device","h811");
         property_set("ro.build.product","h811");
-    } else if (strstr(product_model,"LG-H812")) {
+    } else if (strstr(product_model,"LGLS991") and strstr(usu_detect,"UsU_unlocked")) {
         property_set("ro.product.detection","success");
-        property_set("ro.product.model","LG-H812");
-        property_set("ro.product.name","p1");
-        property_set("ro.product.device","h812");
-        property_set("ro.build.product","h812");
-    } else if (strstr(product_model,"LGLS991")) {
-        property_set("ro.product.detection","success");
-        property_set("ro.product.model","LGLS991");
-        property_set("ro.product.name","p1_spr_us");
-        property_set("ro.product.device","ls991");
-        property_set("ro.build.product","ls991");
-    } else if (strstr(product_model,"VS986")) {
-        property_set("ro.product.detection","success");
-        property_set("ro.product.model","VS986");
-        property_set("ro.product.name","p1_vzw");
-        property_set("ro.product.device","vs986");
-        property_set("ro.build.product","vs986");
-    } else if (strstr(product_model,"LG-H818")) {
-        property_set("ro.product.detection","success");
-        property_set("ro.product.model","LG-H818");
-        property_set("ro.product.name","p1_global_com");
-        property_set("ro.product.device","h818");
-        property_set("ro.build.product","h818");
-    // Check WHETHER we got another device
+        property_set("ro.device.unlockmode",usu_detect);
+        property_set("ro.product.model","LGLS991_UsU");
+        property_set("ro.product.name","p1_usu");
+        property_set("ro.product.device","ls991_UsU");
+        property_set("ro.build.product","ls991_UsU");
+    // Only these above should exists.. no others can!
     } else {
         //The wont work on other devices so just let them be their own props
         property_set("ro.product.detection","unknown_model");
+        property_set("ro.device.unlockmode",usu_detect);
         property_set("ro.product.model",product_model);
         property_set("ro.product.name",product_name);
         property_set("ro.product.device",product_device);
