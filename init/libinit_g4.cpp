@@ -34,7 +34,7 @@
 
 #define CMDLINE_MODEL        "model.name="
 #define CMDLINE_MODEL_LEN    (strlen(CMDLINE_MODEL))
-#define DEVID_MAX 48
+#define DEVID_MAX 10
 
 char product_model[PROP_VALUE_MAX];
 
