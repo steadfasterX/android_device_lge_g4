@@ -5,6 +5,7 @@ LOG=/tmp/recovery.log
 DEBUG=0
 QCOMTIMED=/tempsys/bin/time_daemon
 SONYTIMED=/tempsys/bin/timekeep
+TMPSYS=/tempsys
 
 F_LOG(){
    MSG="$1"
@@ -21,18 +22,18 @@ F_LOG "timeadjust before setprop: >$(getprop persist.sys.timeadjust)<"
 
 # identify ROM type
 F_LOG "system mount:"
-mkdir /tempsys
-mount -t ext4 /dev/block/bootdevice/by-name/system /tempsys 2>&1 >> $LOG || mount -t f2fs /dev/block/bootdevice/by-name/system /tempsys 2>&1 >> $LOG
-F_LOG "$(mount | grep tempsys)"
-F_LOG "$(ls -la /tempsys/build.prop)"
-[ ! -r /tempsys/build.prop ] && F_ELOG "cannot determine installed OS! time will may not work properly.. falling back to qcomtime.."
-[ $DEBUG -eq 1 ] && [ -r /tempsys/build.prop ] && F_LOG "your build entries in yours ROM build.prop: $(grep build /tempsys/build.prop)"
+mkdir $TMPSYS
+mount -t ext4 /dev/block/bootdevice/by-name/system $TMPSYS 2>&1 >> $LOG || mount -t f2fs /dev/block/bootdevice/by-name/system $TMPSYS 2>&1 >> $LOG
+F_LOG "$(mount | grep \"$TMPSYS\" )"
+F_LOG "$(ls -la $TMPSYS/build.prop)"
+[ ! -r $TMPSYS/build.prop ] && F_ELOG "cannot determine installed OS! time will may not work properly.. falling back to qcomtime.."
+[ $DEBUG -eq 1 ] && [ -r $TMPSYS/build.prop ] && F_LOG "your build entries in yours ROM build.prop: $(grep build $TMPSYS/build.prop)"
 
 unset ROMTYPE
 [ -f $QCOMTIMED ] && ROMTYPE=qcomtime
 [ -f $SONYTIMED ] && ROMTYPE=sony
 
-SYSPROP=$(grep "ro.build.flavor" /tempsys/build.prop|cut -d "=" -f 2)
+SYSPROP=$(grep "ro.build.flavor" $TMPSYS/build.prop|cut -d "=" -f 2)
 echo "$SYSPROP" | egrep -i '(aosp|aoscp|aicp|lineage|cyanogenmod|^cm_|^omni_)' >> /dev/null
 if [ $? -eq 0 ];then PROPTYPE=sony; else PROPTYPE=qcomtime; fi
 
@@ -40,8 +41,8 @@ if [ $? -eq 0 ];then PROPTYPE=sony; else PROPTYPE=qcomtime; fi
 [ -z $QCOMTIMED ] && [ -z $SONYTIMED ] && ROMTYPE=$PROPTYPE && F_ELOG "binary detection failed! using fallback.."
 
 F_LOG "system umount"
-umount /tempsys 2>&1 >> $LOG
-rm -Rf /tempsys
+umount $TMPSYS 2>&1 >> $LOG
+rm -Rf $TMPSYS
 
 F_LOG "ROM type detected: $ROMTYPE (flavor: $SYSPROP)"
 [ -z "$ROMTYPE" ] && F_ELOG "ROM TYPE cannot be detected!!! Flavor: $SYSPROP"
