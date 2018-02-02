@@ -3,8 +3,8 @@
 
 LOG=/tmp/recovery.log
 DEBUG=0
-QCOMTIMED=/tempsys/bin/time_daemon
-SONYTIMED=/tempsys/bin/timekeep
+QCOMTIMED=time_daemon
+SONYTIMED=timekeep
 TMPSYS=/tempsys
 
 F_LOG(){
@@ -30,8 +30,8 @@ F_LOG "$(ls -la $TMPSYS/build.prop)"
 [ $DEBUG -eq 1 ] && [ -r $TMPSYS/build.prop ] && F_LOG "your build entries in yours ROM build.prop: $(grep build $TMPSYS/build.prop)"
 
 unset ROMTYPE
-[ -f $QCOMTIMED ] && ROMTYPE=qcomtime
-[ -f $SONYTIMED ] && ROMTYPE=sony
+find $TMPSYS -name $QCOMTIMED | grep $QCOMTIMED 2>&1 >> $LOG && ROMTYPE=qcomtime
+find $TMPSYS -name $SONYTIMED | grep $SONYTIMED 2>&1 >> $LOG && ROMTYPE=sony
 
 SYSPROP=$(grep "ro.build.flavor" $TMPSYS/build.prop|cut -d "=" -f 2)
 echo "$SYSPROP" | egrep -i '(aosp|aoscp|aicp|lineage|cyanogenmod|^cm_|^omni_)' >> /dev/null
