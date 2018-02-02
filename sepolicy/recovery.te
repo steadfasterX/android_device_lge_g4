@@ -19,11 +19,7 @@ recovery_only(`
     allow recovery install_data_file:file getattr;
     allow recovery keychain_data_file:dir { getattr open read };
     allow recovery keychain_data_file:file getattr;
-    allow recovery keystore_data_file:dir { getattr open read };
-    allow recovery keystore_data_file:file getattr;
     allow recovery logpersistd_logging_prop:file { getattr open };
-    allow recovery media_rw_data_file:dir { add_name create getattr open read relabelfrom relabelto remove_name rmdir setattr write };
-    allow recovery media_rw_data_file:file { create getattr open read relabelfrom relabelto setattr unlink write };
     allow recovery mmc_prop:file { getattr open };
     allow recovery mtp_device:chr_file { ioctl open read write };
     allow recovery net_data_file:dir { getattr open read };
@@ -33,7 +29,6 @@ recovery_only(`
     allow recovery ringtone_file:file getattr;
     allow recovery rootfs:dir { add_name create write };
     allow recovery rootfs:fifo_file { create open read };
-    allow recovery rootfs:file { create rename write };
     allow recovery rootfs:lnk_file create;
     allow recovery rtc_device:chr_file { ioctl open read };
     allow recovery safemode_prop:file { getattr open };
