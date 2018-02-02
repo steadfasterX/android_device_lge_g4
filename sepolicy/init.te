@@ -1,0 +1,4 @@
+recovery_only(`
+    allow init functionfs:dir mounton;
+    allow init kernel:security setcheckreqprot;
+')
