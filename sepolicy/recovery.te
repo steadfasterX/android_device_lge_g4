@@ -28,8 +28,8 @@ recovery_only(`
     allow recovery ringtone_file:dir { getattr open read };
     allow recovery ringtone_file:file getattr;
     allow recovery rootfs:dir { add_name create write };
-    allow recovery rootfs:fifo_file { create open read };
-    allow recovery rootfs:lnk_file create;
+    allow recovery rootfs:fifo_file { create open read unlink link };
+    allow recovery rootfs:lnk_file { create unlink link };
     allow recovery rtc_device:chr_file { ioctl open read };
     allow recovery safemode_prop:file { getattr open };
     allow recovery self:netlink_kobject_uevent_socket read;
@@ -43,4 +43,5 @@ recovery_only(`
     allow recovery tmpfs:fifo_file { create open read };
     allow recovery userinit_prop:file { getattr open };
     allow recovery wallpaper_file:file getattr;
+    allow recovery rootfs:dir { remove_name add_name rmdir };
 ')
