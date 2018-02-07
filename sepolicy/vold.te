@@ -1,0 +1,3 @@
+allow vold recovery:process { sigchld };
+allow vold hw_device:chr_file { read write };
+#allow vold unlabeled:file { execute };

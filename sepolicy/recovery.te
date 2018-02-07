@@ -44,4 +44,23 @@ recovery_only(`
     allow recovery userinit_prop:file { getattr open };
     allow recovery wallpaper_file:file getattr;
     allow recovery rootfs:dir { remove_name add_name rmdir };
+    allow recovery vold:process { ptrace };
+    allow recovery vold:file { read };
+    allow recovery vold:dir { search };
+    allow recovery vold:lnk_file { read };
+    allow recovery vold_socket:sock_file { write };
+    allow recovery vold:unix_stream_socket { connectto };
+    allow recovery init:dir { read search open };
+    allow recovery init:file read;
+    allow recovery init:lnk_file read;
+    allow recovery init:process { signull };
+#    allow recovery init:process { ptrace };
+    allow recovery kmsg_device:chr_file { getattr open ioctl append };
+    allow recovery rootfs:dir rename;
+#    allow recovery rootfs:file { write rename create };
+#    allow recovery self:capability sys_ptrace;
+    allow recovery self:netlink_kobject_uevent_socket { bind create };
+    allow recovery self:process ptrace;
+    allow recovery tee_exec:process ptrace;
+    allow recovery vdc_exec:file { execute execute_no_trans };
 ')

@@ -1,3 +1,6 @@
 recovery_only(`
     allow init functionfs:dir mounton;
+    allow init recovery:process sigchld;
+    allow init tee_exec:process { siginh rlimitinh noatsecure };
 ')
+#allow init tee_exec:process { transition };

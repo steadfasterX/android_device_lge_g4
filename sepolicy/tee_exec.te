@@ -1,0 +1,33 @@
+recovery_only(`
+allow tee_exec device:dir search;
+allow tee_exec init:fd use;
+allow tee_exec null_device:chr_file { read write };
+allow tee_exec properties_device:dir getattr;
+allow tee_exec properties_serial:file read;
+allow tee_exec property_contexts:file { read getattr open };
+allow tee_exec recovery:process sigchld;
+allow tee_exec rootfs:file entrypoint;
+allow tee_exec system_file:file read;
+allow tee_exec urandom_device:chr_file { read getattr open ioctl };
+allow tee_exec debug_prop:file { read getattr open };
+allow tee_exec default_prop:file { read getattr open };
+allow tee_exec log_tag_prop:file read;
+allow tee_exec logd:unix_dgram_socket sendto;
+allow tee_exec logdw_socket:sock_file write;
+allow tee_exec proc:lnk_file read;
+allow tee_exec properties_serial:file { getattr open };
+allow tee_exec rootfs:dir getattr;
+allow tee_exec rootfs:file { read getattr open execute };
+allow tee_exec rootfs:filesystem getattr;
+allow tee_exec rootfs:lnk_file { read getattr };
+allow tee_exec self:dir search;
+allow tee_exec self:lnk_file read;
+allow tee_exec self:unix_dgram_socket { create connect };
+allow tee_exec sysfs:dir search;
+allow tee_exec sysfs_devices_system_cpu:dir search;
+allow tee_exec sysfs_devices_system_cpu:file { read getattr open };
+allow tee_exec system_file:dir getattr;
+allow tee_exec system_file:file { getattr open };
+allow tee_exec unlabeled:dir getattr;
+')
+

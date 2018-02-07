@@ -1,1 +1,2 @@
 /dev/block/mmcblk0p32               u:object_r:metadata_block_device:s0
+/dev/hwbinder                       u:object_r:hw_device:s0
