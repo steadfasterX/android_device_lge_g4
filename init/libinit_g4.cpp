@@ -19,13 +19,17 @@
 #include "util.h"
 #include <ctype.h>
 
+#include <iostream>     // std::cout
+#include <fstream>      // std::ifstream
+
 #define CMDLINE_MODEL        "model.name="
 #define CMDLINE_MODEL_LEN    (strlen(CMDLINE_MODEL))
 #define DEVID_MAX 10
 #define CMDLINE_USU          "slub_debug="
 #define CMDLINE_USU_LEN      (strlen(CMDLINE_USU))
 #define USU_MAX 10
-
+#define USUOFFSET 3145722       // UsU offset
+#define USUCOUNT 6
 
 char product_model[PROP_VALUE_MAX];
 char usu_detect[PROP_VALUE_MAX];
@@ -87,6 +91,26 @@ void get_device_model(void)
      return;
 }
 
+void get_usu_model(void)
+{
+    std::ifstream disk ("/dev/block/bootdevice/by-name/raw_resources", std::ifstream::binary);
+    if (disk) {
+      disk.seekg (0, disk.end);
+      int length = disk.tellg();
+      if ( length < USUOFFSET) {
+        printf("UsU: disk length is too small!\n");
+      } else {
+        disk.seekg (USUOFFSET, disk.beg);
+        char * buffer = new char [USUCOUNT+1];
+        disk.read (buffer,USUCOUNT);
+        disk.close();
+        strcpy(product_model,buffer);
+        printf("UsU model:  %s\n", product_model);
+        delete[] buffer;
+      }
+    }
+}
+
 void get_usu(void)
 {
     FILE *fp;
@@ -101,11 +125,9 @@ void get_usu(void)
 
         token = strtok(line, " ");
         while (token) {
-            if (memcmp(token, CMDLINE_USU, CMDLINE_USU_LEN) == 0) {
-                //token += CMDLINE_USU_LEN;
-                //snprintf(usu_detect, USU_MAX, "%s", token);
-                //sanitize_usu_detect(); // also removes newlines
+            if (memcmp(token, CMDLINE_USU, CMDLINE_USU_LEN) == 0 and strstr(product_model,"LGLS991")) {
                 strcpy(usu_detect, "UsU_unlocked"); // UsU found
+                get_usu_model();
                 return;
             }
             token = strtok(NULL, " ");
@@ -126,13 +148,20 @@ void vendor_load_properties()
     get_usu();
 
     // Check what device types we have and set their prop accordingly
-    if (strstr(product_model,"LG-H815")) {
+    if (strstr(product_model,"LG-H815") or strstr(product_model,"H815")) {
         property_set("ro.product.detection","success");
         property_set("ro.device.unlockmode",usu_detect);
         property_set("ro.product.model","LG-H815");
         property_set("ro.product.name","p1_global_com");
         property_set("ro.product.device","h815");
         property_set("ro.build.product","h815");
+    } else if (strstr(product_model,"H810")) {
+        property_set("ro.product.detection","success");
+        property_set("ro.device.unlockmode","UsU_unlocked");
+        property_set("ro.product.model","LG-H810");
+        property_set("ro.product.name","p1");
+        property_set("ro.product.device","h810");
+        property_set("ro.build.product","h810");
     } else if (strstr(product_model,"LG-H811")) {
         property_set("ro.product.detection","success");
         property_set("ro.device.unlockmode",usu_detect);
@@ -140,13 +169,55 @@ void vendor_load_properties()
         property_set("ro.product.name","p1_tmo_us");
         property_set("ro.product.device","h811");
         property_set("ro.build.product","h811");
-    } else if (strstr(product_model,"LGLS991") and strstr(usu_detect,"UsU_unlocked")) {
+    } else if (strstr(product_model,"H812")) {
         property_set("ro.product.detection","success");
-        property_set("ro.device.unlockmode",usu_detect);
-        property_set("ro.product.model","LGLS991_UsU");
-        property_set("ro.product.name","p1_usu");
-        property_set("ro.product.device","ls991_UsU");
-        property_set("ro.build.product","ls991_UsU");
+        property_set("ro.device.unlockmode","UsU_unlocked");
+        property_set("ro.product.model","LG-H812");
+        property_set("ro.product.name","p1");
+        property_set("ro.product.device","h812");
+        property_set("ro.build.product","h812");
+    } else if (strstr(product_model,"H818")) {
+        property_set("ro.product.detection","success");
+        property_set("ro.device.unlockmode","UsU_unlocked");
+        property_set("ro.product.model","LG-H818");
+        property_set("ro.product.name","p1");
+        property_set("ro.product.device","h818");
+        property_set("ro.build.product","h818");
+    } else if (strstr(product_model,"H819")) {
+        property_set("ro.product.detection","success");
+        property_set("ro.device.unlockmode","UsU_unlocked");
+        property_set("ro.product.model","LG-H819");
+        property_set("ro.product.name","p1");
+        property_set("ro.product.device","h819");
+        property_set("ro.build.product","h819");
+    } else if (strstr(product_model,"F500")) {
+        property_set("ro.product.detection","success");
+        property_set("ro.device.unlockmode","UsU_unlocked");
+        property_set("ro.product.model","LG-F500");
+        property_set("ro.product.name","p1");
+        property_set("ro.product.device","f500");
+        property_set("ro.build.product","f500");
+    } else if (strstr(product_model,"LS991")) {
+        property_set("ro.product.detection","success");
+        property_set("ro.device.unlockmode","UsU_unlocked");
+        property_set("ro.product.model","LG-LS991");
+        property_set("ro.product.name","p1");
+        property_set("ro.product.device","ls991");
+        property_set("ro.build.product","ls991");
+    } else if (strstr(product_model,"US991")) {
+        property_set("ro.product.detection","success");
+        property_set("ro.device.unlockmode","UsU_unlocked");
+        property_set("ro.product.model","LG-US991");
+        property_set("ro.product.name","p1");
+        property_set("ro.product.device","us991");
+        property_set("ro.build.product","us991");
+    } else if (strstr(product_model,"VS986")) {
+        property_set("ro.product.detection","success");
+        property_set("ro.device.unlockmode","UsU_unlocked");
+        property_set("ro.product.model","LG-VS986");
+        property_set("ro.product.name","p1");
+        property_set("ro.product.device","vs986");
+        property_set("ro.build.product","vs986");
     // Only these above should exists.. no others can!
     } else {
         //The wont work on other devices so just let them be their own props
