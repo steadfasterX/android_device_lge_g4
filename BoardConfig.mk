@@ -92,5 +92,5 @@ BOARD_SEPOLICY_DIRS += device/lge/g4/sepolicy
 # Unify all g4 models
 TARGET_UNIFIED_DEVICE := true
 TARGET_INIT_VENDOR_LIB := libinit_g4
-TARGET_RECOVERY_DEVICE_MODULES := libinit_g4
+TARGET_RECOVERY_DEVICE_MODULES += libinit_g4
 TARGET_LIBINIT_DEFINES_FILE := $(DEVICE_TREE)/init/libinit_g4.cpp
