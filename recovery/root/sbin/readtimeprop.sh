@@ -29,7 +29,7 @@ grep -q "/system" /etc/fstab && FSTABHERE=1
 while [ "$FSTABHERE" -eq 0 ];do
     F_LOG "No twrp fstab which includes /system generated yet! will wait until its there.."
     sleep 2
-    mount |grep -q "/system" && FSTABHERE=1
+    grep -q "/system" /etc/fstab && FSTABHERE=1
 done
 F_LOG "/system found in twrp fstab: >$(grep '/system' /etc/fstab)<"
 
