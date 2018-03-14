@@ -20,6 +20,17 @@ TAG="READTIME"
 F_LOG "Starting $0"
 F_LOG "timeadjust before setprop: >$(getprop persist.sys.timeadjust)<"
 
+SYSTEMHERE=0
+F_LOG "checking /system"
+mount |grep -q "/system"
+MNTERR=$?
+F_LOG "No /system mounted yet! will wait until its there.."
+while [ "$SYSTEMHERE" -eq 0 ];do
+    sleep 2
+    mount |grep -q "/system" && SYSTEMHERE=1
+done
+F_LOG "/system detected: >$(mount |grep -q '/system')<"
+
 # identify ROM type
 F_LOG "system mount:"
 mkdir $TMPSYS
@@ -57,7 +68,7 @@ else
     F_LOG "checking /data"
     mount |grep -q "/data"
     MNTERR=$?
-    F_LOG "No /data in fstab yet! will wait until its there.."
+    F_LOG "No fstab for /data yet! will wait until its there.."
     while [ "$FSTABHERE" -eq 0 ];do
         sleep 2
         grep -q "/data" /etc/fstab && FSTABHERE=1
