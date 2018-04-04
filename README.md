@@ -36,7 +36,7 @@ _UsU'd_ means: unlocked by [UsU](https://bit.do/unlockg4)
 
 Prepare the android sources like written in the [official TWRP guide](http://forum.xda-developers.com/showthread.php?t=1943625)
 
-Android branch to use: https://github.com/omnirom/android/tree/android-6.0
+Android branch to use: https://github.com/omnirom/android/tree/android-7.1
 
 Create `.repo/local_manifests/g4.xml`:
 
@@ -83,7 +83,7 @@ Then run `repo sync` to check it out.
 
 To build the kernel run (all in 1 line):
 
-`MAXCPU=13 JAVACBIN=undef NEEDEDJAVA=undef CONFIG_NO_ERROR_ON_MISMATCH=y BUILDID=lge/g4 KCONF=cyanogenmod_h815_defconfig UARCH=x64 KDIR=kernel/lge/llama vendor/sedi/prebuilt/bin/universalbuilder.sh kernelonly`
+`MAXCPU=13 JAVACBIN=undef NEEDEDJAVA=undef CONFIG_NO_ERROR_ON_MISMATCH=y BUILDID=lge/g4 KCONF=twrp_g4_defconfig UARCH=x64 KDIR=kernel/lge/titan vendor/sedi/prebuilt/bin/universalbuilder.sh kernelonly`
 
 adjust MAXCPU to the amount of cores to use for building
 
