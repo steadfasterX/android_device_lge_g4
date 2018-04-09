@@ -149,71 +149,71 @@ void vendor_load_properties()
 
     // Check what device types we have and set their prop accordingly
     if (strstr(product_model,"LG-H815") or strstr(product_model,"H815")) {
-        property_set("ro.product.detection","success");
-        property_set("ro.device.unlockmode",usu_detect);
+        property_set("ro.usu.product.detection","success");
+        property_set("ro.usu.device.unlockmode",usu_detect);
         property_set("ro.product.model","LG-H815");
         property_set("ro.product.name","p1_global_com");
         property_set("ro.product.device","h815");
         property_set("ro.build.product","h815");
     } else if (strstr(product_model,"H810")) {
-        property_set("ro.product.detection","success");
-        property_set("ro.device.unlockmode","UsU_unlocked");
+        property_set("ro.usu.product.detection","success");
+        property_set("ro.usu.device.unlockmode","UsU_unlocked");
         property_set("ro.product.model","LG-H810");
         property_set("ro.product.name","p1");
         property_set("ro.product.device","h810");
         property_set("ro.build.product","h810");
     } else if (strstr(product_model,"LG-H811")) {
-        property_set("ro.product.detection","success");
-        property_set("ro.device.unlockmode",usu_detect);
+        property_set("ro.usu.product.detection","success");
+        property_set("ro.usu.device.unlockmode",usu_detect);
         property_set("ro.product.model","LG-H811");
         property_set("ro.product.name","p1_tmo_us");
         property_set("ro.product.device","h811");
         property_set("ro.build.product","h811");
     } else if (strstr(product_model,"H812")) {
-        property_set("ro.product.detection","success");
-        property_set("ro.device.unlockmode","UsU_unlocked");
+        property_set("ro.usu.product.detection","success");
+        property_set("ro.usu.device.unlockmode","UsU_unlocked");
         property_set("ro.product.model","LG-H812");
         property_set("ro.product.name","p1");
         property_set("ro.product.device","h812");
         property_set("ro.build.product","h812");
     } else if (strstr(product_model,"H818")) {
-        property_set("ro.product.detection","success");
-        property_set("ro.device.unlockmode","UsU_unlocked");
+        property_set("ro.usu.product.detection","success");
+        property_set("ro.usu.device.unlockmode","UsU_unlocked");
         property_set("ro.product.model","LG-H818");
         property_set("ro.product.name","p1");
         property_set("ro.product.device","h818");
         property_set("ro.build.product","h818");
     } else if (strstr(product_model,"H819")) {
-        property_set("ro.product.detection","success");
-        property_set("ro.device.unlockmode","UsU_unlocked");
+        property_set("ro.usu.product.detection","success");
+        property_set("ro.usu.device.unlockmode","UsU_unlocked");
         property_set("ro.product.model","LG-H819");
         property_set("ro.product.name","p1");
         property_set("ro.product.device","h819");
         property_set("ro.build.product","h819");
     } else if (strstr(product_model,"F500")) {
-        property_set("ro.product.detection","success");
-        property_set("ro.device.unlockmode","UsU_unlocked");
+        property_set("ro.usu.product.detection","success");
+        property_set("ro.usu.device.unlockmode","UsU_unlocked");
         property_set("ro.product.model","LG-F500");
         property_set("ro.product.name","p1");
         property_set("ro.product.device","f500");
         property_set("ro.build.product","f500");
     } else if (strstr(product_model,"LS991")) {
-        property_set("ro.product.detection","success");
-        property_set("ro.device.unlockmode","UsU_unlocked");
+        property_set("ro.usu.product.detection","success");
+        property_set("ro.usu.device.unlockmode","UsU_unlocked");
         property_set("ro.product.model","LG-LS991");
         property_set("ro.product.name","p1");
         property_set("ro.product.device","ls991");
         property_set("ro.build.product","ls991");
     } else if (strstr(product_model,"US991")) {
-        property_set("ro.product.detection","success");
-        property_set("ro.device.unlockmode","UsU_unlocked");
+        property_set("ro.usu.product.detection","success");
+        property_set("ro.usu.device.unlockmode","UsU_unlocked");
         property_set("ro.product.model","LG-US991");
         property_set("ro.product.name","p1");
         property_set("ro.product.device","us991");
         property_set("ro.build.product","us991");
     } else if (strstr(product_model,"VS986")) {
-        property_set("ro.product.detection","success");
-        property_set("ro.device.unlockmode","UsU_unlocked");
+        property_set("ro.usu.product.detection","success");
+        property_set("ro.usu.device.unlockmode","UsU_unlocked");
         property_set("ro.product.model","LG-VS986");
         property_set("ro.product.name","p1");
         property_set("ro.product.device","vs986");
@@ -221,8 +221,8 @@ void vendor_load_properties()
     // Only these above should exists.. no others can!
     } else {
         //The wont work on other devices so just let them be their own props
-        property_set("ro.product.detection","unknown_model");
-        property_set("ro.device.unlockmode",usu_detect);
+        property_set("ro.usu.product.detection","unknown_model");
+        property_set("ro.usu.device.unlockmode",usu_detect);
         property_set("ro.product.model",product_model);
         property_set("ro.product.name",product_name);
         property_set("ro.product.device",product_device);
