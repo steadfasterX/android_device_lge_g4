@@ -25,8 +25,6 @@
 #define CMDLINE_MODEL        "model.name="
 #define CMDLINE_MODEL_LEN    (strlen(CMDLINE_MODEL))
 #define DEVID_MAX 10
-#define CMDLINE_USU          "slub_debug="
-#define CMDLINE_USU_LEN      (strlen(CMDLINE_USU))
 #define USU_MAX 10
 #define USUOFFSET 3145722       // UsU offset
 #define USUCOUNT 6
@@ -125,7 +123,7 @@ void get_usu(void)
 
         token = strtok(line, " ");
         while (token) {
-            if (memcmp(token, CMDLINE_USU, CMDLINE_USU_LEN) == 0 and (strstr(product_model,"LGLS991") or strstr(product_model,"LG-USU"))) {
+            if (memcmp(token, CMDLINE_MODEL, CMDLINE_MODEL_LEN) == 0 and (strstr(product_model,"LGLS991") or strstr(product_model,"LG-USU"))) {
                 strcpy(usu_detect, "UsU_unlocked"); // UsU found
                 get_usu_model();
                 return;
