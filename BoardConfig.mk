@@ -25,8 +25,8 @@ TARGET_2ND_CPU_VARIANT := cortex-a53.a57
 BOARD_KERNEL_CMDLINE := maxcpus console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 user_debug=31 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 msm_rtb.filter=0x37 androidboot.hardware=p1 androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 4096
-BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x0000000 --ramdisk_offset 0x02200000 --tags_offset 0x00000100 --dt device/lge/g4/dt.img
-TARGET_PREBUILT_KERNEL := device/lge/g4/Image
+BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x0000000 --ramdisk_offset 0x02200000 --tags_offset 0x00000100
+TARGET_PREBUILT_KERNEL := device/lge/g4/Image.gz-dtb
 
 # EMMC / PARTITIONS
 BOARD_BOOTIMAGE_PARTITION_SIZE     := 0x002800000
