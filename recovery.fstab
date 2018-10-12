@@ -1,7 +1,6 @@
 /boot		emmc	/dev/block/platform/f9824900.sdhci/by-name/boot		flags=backup=1
 /recovery	emmc	/dev/block/platform/f9824900.sdhci/by-name/recovery	flags=backup=1
 /system		ext4	/dev/block/platform/f9824900.sdhci/by-name/system	flags=backup=1
-/system_image   emmc    /dev/block/platform/f9824900.sdhci/by-name/system
 /data		ext4	/dev/block/platform/f9824900.sdhci/by-name/userdata	flags=encryptable=/dev/block/platform/f9824900.sdhci/by-name/encrypt
 /cache		ext4	/dev/block/platform/f9824900.sdhci/by-name/cache
 /firmware	vfat 	/dev/block/platform/f9824900.sdhci/by-name/modem	flags=backup=0;display="Firmware";mounttodecrypt
