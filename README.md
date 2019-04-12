@@ -2,7 +2,8 @@
 
 **Decryption** and working **time** requires an *Android version specific* branch of this device tree:
 
-* **Oreo** CM/LOS/AOSP based ROMs -> branch: **android-8.0**
+* **Pie** CM/LOS/AOSP based ROMs -> branch: **android-9.0**
+* **Oreo** CM/LOS/AOSP based ROMs -> branch: **android-8.1**
 * **Nougat** CM/LOS/AOSP based ROMs -> branch: **android-7.1**
 * **Nougat** STOCK based ROMs -> branch: **android-7.1**
 * **Marshmallow** CM/LOS/AOSP based ROMs -> branch: **android-6.0**
@@ -70,8 +71,8 @@ Create `.repo/local_manifests/g4_kernel.xml`:
 <manifest>
   <remote  name="bitbucket"
            fetch="https://bitbucket.org/" />
-           
-  <project name="Suicide-Squirrel/Titan-Kernel-LG-G4" path="kernel/lge/titan" remote="github" revision="refs/heads/aosp" />         
+
+  <project name="Suicide-Squirrel/Titan-Kernel-LG-G4" path="kernel/lge/titan" remote="github" revision="refs/heads/oreo-mr1-release_synced" />         
   <project name="steadfasterX/android_buildtools" path="vendor/sedi/prebuilt/bin" remote="github" revision="master" />
   <project name="matthewdalex/aarch64-linux-android-4.9" path="prebuilts/gcc/linux-x86/aarch64-linux-android-4.9-kernel" remote="bitbucket" revision="master" />
   <project name="xiaolu/mkbootimg_tools" path="prebuilts/devtools/mkbootimg_tools" remote="github" revision="master" />
