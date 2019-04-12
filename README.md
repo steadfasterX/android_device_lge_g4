@@ -2,7 +2,8 @@
 
 **Decryption** and working **time** requires an *Android version specific* branch of this device tree:
 
-* **Oreo** CM/LOS/AOSP based ROMs -> branch: **android-8.0**
+* **Pie** CM/LOS/AOSP based ROMs -> branch: **android-9.0**
+* **Oreo** CM/LOS/AOSP based ROMs -> branch: **android-8.1**
 * **Nougat** CM/LOS/AOSP based ROMs -> branch: **android-7.1**
 * **Nougat** STOCK based ROMs -> branch: **android-7.1**
 * **Marshmallow** CM/LOS/AOSP based ROMs -> branch: **android-6.0**
