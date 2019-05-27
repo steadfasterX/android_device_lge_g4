@@ -66,8 +66,7 @@ TW_DEFAULT_BRIGHTNESS := 162
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 # when double tap is enabled this has to be set to FALSE otherwise when
 # an usb cable is connected the screen is blank for several minutes
-TW_SCREEN_BLANK_ON_BOOT := false
-#TW_TARGET_USES_QCOM_BSP := true
+# TW_SCREEN_BLANK_ON_BOOT := false
 
 # SPECIAL FLAGS
 # ignore a factory reset when using the phone's factory reset screen
