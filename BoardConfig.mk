@@ -52,6 +52,9 @@ TW_NO_USB_STORAGE := true
 TW_EXCLUDE_SUPERSU := true
 TW_NEW_ION_HEAP := true
 
+# NTFS (R/W access)
+TW_INCLUDE_NTFS_3G := true
+
 # TIME
 # avoid TWRP's try to fix the time. time is handled by readtimeprop.sh
 # and TWRP will reset the already fixed time when enabled
