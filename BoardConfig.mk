@@ -88,18 +88,23 @@ TW_IGNORE_MISC_WIPE_DATA := true
 
 # CRYPTO
 TW_INCLUDE_CRYPTO := true
+TARGET_HW_DISK_ENCRYPTION := true
+#TARGET_LEGACY_HW_DISK_ENCRYPTION := true
+TARGET_CRYPTFS_HW_PATH := device/lge/g4/cryptfs_hw
 # https://github.com/omnirom/android_bootable_recovery/commit/71c6c50d0d
-TW_CRYPTO_USE_SYSTEM_VOLD := qseecomd
+#TW_CRYPTO_USE_SYSTEM_VOLD := qseecomd
 TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 
 # TWRP debug flags
 #TW_CRYPTO_SYSTEM_VOLD_DEBUG := true
-#TARGET_RECOVERY_DEVICE_MODULES += strace debuggerd
-#TW_RECOVERY_ADDITIONAL_RELINK_FILES += $(TARGET_OUT_OPTIONAL_EXECUTABLES)/strace $(TARGET_OUT_EXECUTABLES)/debuggerd
+#TARGET_RECOVERY_DEVICE_MODULES += strace
+#TW_RECOVERY_ADDITIONAL_RELINK_FILES += $(TARGET_OUT_OPTIONAL_EXECUTABLES)/strace
 
 # SEPOLICY stuff
 # https://android.googlesource.com/platform/external/sepolicy/+/marshmallow-release/README
 BOARD_SEPOLICY_DIRS += device/lge/g4/sepolicy
+SELINUX_IGNORE_NEVERALLOWS := true
+
 
 # Builder's *default* for including /data/media (internal storage) in TWRP backups of data partition
 # outcomment for *not* including data/media by default or "true" for including it

@@ -1,0 +1,126 @@
+
+#============= crash_dump ==============
+allow crash_dump rootfs:file { getattr open read };
+
+#============= init ==============
+allow init kernel:security setcheckreqprot;
+allow init rootfs:file { create write };
+allow init sysfs_devices_system_cpu:file write;
+allow init tee_exec:process { getpgid noatsecure rlimitinh siginh sigkill transition };
+
+#============= logd ==============
+allow logd rootfs:file { entrypoint getattr open read };
+
+#============= recovery ==============
+#allow recovery audioserver_exec:file getattr;
+allow recovery bootstat_exec:file getattr;
+allow recovery device:chr_file { ioctl open read write };
+#allow recovery hidl_base_hwservice:hwservice_manager add;
+#allow recovery hidl_manager_hwservice:hwservice_manager add;
+#allow recovery hidl_token_hwservice:hwservice_manager add;
+#allow recovery logcat_exec:file getattr;
+#allow recovery mediametrics_exec:file getattr;
+allow recovery nonplat_service_contexts_file:file getattr;
+allow recovery proc_filesystems:file { getattr open read };
+allow recovery rootfs:dir { add_name create write };
+allow recovery rootfs:fifo_file { create getattr open read unlink write };
+allow recovery rootfs:file rename;
+allow recovery seapp_contexts_file:file getattr;
+allow recovery self:capability { fsetid sys_resource };
+allow recovery self:netlink_kobject_uevent_socket { bind create };
+allow recovery selinuxfs:file write;
+allow recovery sepolicy_file:file getattr;
+allow recovery service_contexts_file:file getattr;
+allow recovery sysfs:dir { open read };
+allow recovery sysfs:file { append getattr open read write };
+allow recovery sysfs_vibrator:file { getattr open write };
+allow recovery tmpfs:fifo_file { create open read };
+allow recovery vndservice_contexts_file:file getattr;
+allow recovery vold_exec:file getattr;
+allow recovery vold_prop:property_service set;
+
+#============= su ==============
+allow su tee_exec:process { ptrace signull };
+
+#============= tee_exec ==============
+allow tee_exec block_device:blk_file { getattr open read write };
+allow tee_exec block_device:lnk_file read;
+allow tee_exec debug_prop:file { getattr open read };
+allow tee_exec default_prop:file { getattr open read };
+allow tee_exec device:dir search;
+allow tee_exec init:fd use;
+allow tee_exec init:process sigchld;
+allow tee_exec properties_device:dir getattr;
+allow tee_exec property_info:file { getattr open read };
+allow tee_exec random_device:chr_file read;
+allow tee_exec rootfs:file { entrypoint read };
+allow tee_exec self:capability { setgid setuid sys_rawio };
+allow tee_exec self:dir search;
+allow tee_exec su:process sigchld;
+allow tee_exec system_file:dir getattr;
+allow tee_exec system_file:file { getattr open read };
+
+
+#============= init ==============
+allow init functionfs:dir mounton;
+allow init tee_exec:process transition;
+
+#============= logd ==============
+allow logd rootfs:file execute;
+
+#============= recovery ==============
+allow recovery block_device:dir { add_name write };
+allow recovery block_device:lnk_file create;
+allow recovery bluetooth_prop:file { getattr open };
+allow recovery boottime_prop:file { getattr open };
+allow recovery default_prop:property_service set;
+allow recovery hidl_base_hwservice:hwservice_manager add;
+allow recovery hidl_manager_hwservice:hwservice_manager add;
+allow recovery hidl_token_hwservice:hwservice_manager add;
+allow recovery hwservicemanager_prop:property_service set;
+allow recovery init_exec:file getattr;
+allow recovery rootfs:dir remove_name;
+allow recovery rootfs:file { create unlink write };
+allow recovery rootfs:lnk_file { create rename };
+
+#============= tee_exec ==============
+allow tee_exec null_device:chr_file { read write };
+allow tee_exec properties_serial:file { open read };
+allow tee_exec self:process { getsched sigchld };
+allow tee_exec system_prop:property_service set;
+
+#============= init ==============
+allow init tee_exec:process transition;
+
+#============= recovery ==============
+allow recovery ashmem_device:chr_file execute;
+allow recovery ctl_bootanim_prop:file { getattr open };
+allow recovery ctl_bugreport_prop:file { getattr open };
+allow recovery ctl_console_prop:file open;
+allow recovery rootfs:dir setattr;
+allow recovery rootfs:file setattr;
+allow recovery rootfs:lnk_file setattr;
+allow recovery self:process execmem;
+
+#============= tee_exec ==============
+allow tee_exec proc:lnk_file read;
+allow tee_exec properties_serial:file getattr;
+allow tee_exec rootfs:dir getattr;
+allow tee_exec rootfs:file { getattr open };
+allow tee_exec rootfs:lnk_file { getattr read };
+allow tee_exec self:lnk_file read;
+
+#============= init ==============
+allow init tee_exec:process transition;
+
+#============= tee_exec ==============
+allow tee_exec proc_overcommit_memory:file { open read };
+allow tee_exec rootfs:file execute;
+allow tee_exec rootfs:filesystem getattr;
+
+
+
+
+
+allow recovery dm_device:chr_file { ioctl open read write };
+allow recovery kernel:system module_request;

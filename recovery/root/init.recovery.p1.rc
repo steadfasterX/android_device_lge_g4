@@ -33,9 +33,13 @@ service tunesd /sbin/sh /sbin/tunesd.sh
     disabled
     seclabel u:r:recovery:s0
 
-on fs
-    # steadfasterX: make double tap work in TWRP
-    write /sys/devices/virtual/input/lge_touch/tap2wake 1
+service qseecomd /sbin/qseecomd
+    oneshot
+    disabled
+    seclabel u:object_r:tee_exec:s0
+
+on property:crypto.ready=1
+    start qseecomd
     
 on post-fs
     # performance tuning for backup to external SD card
