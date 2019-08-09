@@ -14,8 +14,8 @@
         {
                 "remote":"github",
                 "repository":"Suicide-Squirrel/Titan-Kernel-LG-G4",
-                "target_path":"kernel/lge/titan",
-                "revision":"aosp"
+                "target_path":"kernel/lge/g4",
+                "revision":"android-7.1"
         },
 	{
 		"remote":"bitbucket",
