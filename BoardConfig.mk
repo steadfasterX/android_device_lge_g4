@@ -85,6 +85,8 @@ TW_NO_SCREEN_TIMEOUT := true
 # this flag requires to build TWRP in branch 7.1 or later
 # DO NOT SET TO FALSE WHEN YOU DO NOT KNOW WHAT YOU'RE DOING!
 TW_IGNORE_MISC_WIPE_DATA := true
+# do not build / include TWRP app
+TW_EXCLUDE_TWRPAPP := true
 
 # CRYPTO
 TW_INCLUDE_CRYPTO := true
