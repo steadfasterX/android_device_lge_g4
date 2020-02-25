@@ -76,6 +76,7 @@ TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 # when double tap is enabled this has to be set to FALSE otherwise when
 # an usb cable is connected the screen is blank for several minutes
 # TW_SCREEN_BLANK_ON_BOOT := false
+TW_NO_SCREEN_TIMEOUT := true
 
 # SPECIAL FLAGS
 # ignore a factory reset when using the phone's factory reset screen
