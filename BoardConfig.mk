@@ -71,7 +71,7 @@ TARGET_RECOVERY_QCOM_RTC_FIX := false
 
 # GRAPHIC FLAGS
 TW_THEME := portrait_hdpi
-TW_DEFAULT_BRIGHTNESS := 162
+TW_DEFAULT_BRIGHTNESS := 200
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 # when double tap is enabled this has to be set to FALSE otherwise when
 # an usb cable is connected the screen is blank for several minutes
