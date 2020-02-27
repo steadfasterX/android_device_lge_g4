@@ -31,13 +31,33 @@ while [ "$FSTABHERE" -eq 0 ];do
     sleep 2
     grep -q "/system" /etc/fstab && FSTABHERE=1
 done
-F_LOG "/system found in twrp fstab: >$(grep '/system' /etc/fstab)<"
+F_LOG "fstab located and /system found in twrp fstab: >$(grep '/system' /etc/fstab)<"
 
 # identify ROM type
-F_LOG "system mount:"
-mkdir $TMPSYS
-mount -t ext4 /dev/block/bootdevice/by-name/system $TMPSYS 2>&1 >> $LOG || mount -t f2fs /dev/block/bootdevice/by-name/system $TMPSYS 2>&1 >> $LOG
-F_LOG "$(mount | grep \"$TMPSYS\" )"
+F_LOG "trying to identify the ROM .."
+
+# check if we need a tmp mount
+mount | grep -q "/system"
+TMPMNTNEED=$?
+if [ $TMPMNTNEED -ne 0 ];then
+    mkdir $TMPSYS
+    TMPMNTHERE=0
+    while [ "$TMPMNTHERE" -eq 0 ];do
+        F_LOG "trying to activate temp mount..."
+        mount -t ext4 /dev/block/bootdevice/by-name/system $TMPSYS >> $LOG 2>&1
+        sleep 2
+        mount | grep -q "$TMPSYS" && TMPMNTHERE=1
+        [ $DEBUG -eq 1 ] && F_LOG "current mounts:\n$(mount)\n"
+    done
+    F_LOG "temp mount: $(mount | grep \"$TMPSYS\" )"
+    SYSMNTED=0
+else
+    F_LOG "/system already mounted, so we can just continue.."
+    SYSMNTED=1
+    TMPSYS="/system"
+fi
+[ $DEBUG -eq 1 ] && F_LOG "current mounts (after temp mount):\n$(mount)\n"
+
 F_LOG "$(ls -la $TMPSYS/build.prop)"
 [ ! -r $TMPSYS/build.prop ] && F_ELOG "cannot determine installed OS! time will may not work properly.. falling back to qcomtime.."
 [ $DEBUG -eq 1 ] && [ -r $TMPSYS/build.prop ] && F_LOG "your build entries in yours ROM build.prop: $(grep build $TMPSYS/build.prop)"
@@ -47,15 +67,19 @@ find $TMPSYS -name $QCOMTIMED | grep $QCOMTIMED 2>&1 >> $LOG && ROMTYPE=qcomtime
 find $TMPSYS -name $SONYTIMED | grep $SONYTIMED 2>&1 >> $LOG && ROMTYPE=sony
 
 SYSPROP=$(grep "ro.build.flavor" $TMPSYS/build.prop|cut -d "=" -f 2)
-echo "$SYSPROP" | egrep -i '(aosp|aoscp|aicp|lineage|cyanogenmod|^cm_|^omni_)' >> /dev/null
+echo "$SYSPROP" | egrep -i '(aosp|aoscp|aicp|lineage|cyanogenmod|^cm_|^omni_|aosip)' >> /dev/null
 if [ $? -eq 0 ];then PROPTYPE=sony; else PROPTYPE=qcomtime; fi
 
 # fallback if the regular detection fails
 [ -z $QCOMTIMED ] && [ -z $SONYTIMED ] && ROMTYPE=$PROPTYPE && F_ELOG "binary detection failed! using fallback.."
 
-F_LOG "system umount"
-umount $TMPSYS 2>&1 >> $LOG
-rm -Rf $TMPSYS
+F_LOG "system umount:"
+if [ "$SYSMNTED" -eq 0 ];then
+    umount $TMPSYS >> $LOG 2>&1
+    F_LOG "... unmounting ended with $?"
+else
+    F_LOG "... skipped unmounting as it is not a temp mount"
+fi
 
 F_LOG "ROM type detected: $ROMTYPE (flavor: $SYSPROP)"
 [ -z "$ROMTYPE" ] && F_ELOG "ROM TYPE cannot be detected!!! Flavor: $SYSPROP"
@@ -68,16 +92,16 @@ if [ -r /data/property/persist.sys.timeadjust ];then
 else
     FSTABHERE=0
     F_LOG "checking /data"
-    mount |grep -q "/data"
-    MNTERR=$?
-    F_LOG "No twrp fstab for /data generated yet! will wait until its there.."
     while [ "$FSTABHERE" -eq 0 ];do
+        F_LOG "No twrp fstab for /data generated yet! will wait until its there.."
         sleep 2
         grep -q "/data" /etc/fstab && FSTABHERE=1
     done
-    F_LOG "/data detected: >$(grep "/data" /etc/fstab)<"
+    F_LOG "/data definition detected in fstab: >$(grep "/data" /etc/fstab)<"
 
-    if [ -d /data/property ];then
+    mount |grep -q "/data"
+    DATAMNT=$?
+    if [ $DATAMNT -eq 0 ];then
         F_LOG "skipping mount /data as it is already mounted"
     else
         F_LOG "mounting /data to access time offset from ROM"
@@ -85,8 +109,8 @@ else
         F_LOG "mounting /data ended with <$?>"
     fi
 
-    [ $DEBUG -eq 1 ] && F_LOG "/data/time content: $(ls -la /data/time)"
-    [ $DEBUG -eq 1 ] && F_LOG "/data/system/time content: $(ls -la /data/system/time)"
+    [ $DEBUG -eq 1 ] && F_LOG "/data/time content:" && find /data/time >> $LOG 2>&1
+    [ $DEBUG -eq 1 ] && F_LOG "/data/system/time content:" && find /data/system/time >> $LOG 2>&1
 
     # clean the kernel buffer to see only the time related stuff
     [ $DEBUG -eq 1 ] && dmesg -c >> /dev/null
@@ -97,7 +121,7 @@ else
     #    - /data/property/persist.sys.timeadjust (when switching from CM/AOSP/... to STOCK)
     if [ "$ROMTYPE" == "qcomtime" ];then
         F_LOG "QCOM time based ROM!"
-        F_LOG "if you feel this is an error you may have and unidentified custom ROM flavor installed!"
+        F_LOG "If you feel this is an error you may have and unidentified custom ROM flavor installed."
         F_LOG "Paste this line in the TWRP thread: flavor = $SYSPROP"
         if [ -r /data/time/ats_1 ]||[ -r /data/time/ats_2 ]||[ -r /data/system/time/ats_1 ]||[ -r /data/system/time/ats_2 ];then
             # we are on STOCK so we do not need custom ROM time file
@@ -107,7 +131,7 @@ else
             setprop twrp.timedaemon 1
         else
             F_ELOG "We expected $ROMTYPE ROM but proprietary qcom time files missing! Cannot set time!"
-            F_ELOG "$(ls -la /data/time/ /data/system/time/)"
+            F_ELOG "$(find /data/time/ /data/system/time/ 2>&1)"
         fi
     else
         # when coming from STOCK those are obsolete!
