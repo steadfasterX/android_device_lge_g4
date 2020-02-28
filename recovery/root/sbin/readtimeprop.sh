@@ -67,7 +67,7 @@ find $TMPSYS -name $QCOMTIMED | grep $QCOMTIMED 2>&1 >> $LOG && ROMTYPE=qcomtime
 find $TMPSYS -name $SONYTIMED | grep $SONYTIMED 2>&1 >> $LOG && ROMTYPE=sony
 
 SYSPROP=$(grep "ro.build.flavor" $TMPSYS/build.prop|cut -d "=" -f 2)
-echo "$SYSPROP" | egrep -i '(aosp|aoscp|aicp|lineage|cyanogenmod|^cm_|^omni_|aosip)' >> /dev/null
+echo "$SYSPROP" | egrep -i '(aosp|aoscp|aicp|lineage|cyanogenmod|^cm_|^omni_|aosip|havoc)' >> /dev/null
 if [ $? -eq 0 ];then PROPTYPE=sony; else PROPTYPE=qcomtime; fi
 
 # fallback if the regular detection fails
