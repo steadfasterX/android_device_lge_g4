@@ -57,9 +57,9 @@ The kernel will be build automatically together with TWRP.
 
 ```sh
 source build/envsetup.sh
-lunch omni_g4-eng
+launch omni_g4-eng
 mka recoveryimage
 ```
-(the lunch command may install additional ressources)
+(the launch command may install additional ressources)
 
 
