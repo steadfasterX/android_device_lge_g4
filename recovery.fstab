@@ -2,6 +2,8 @@
 /recovery	emmc	/dev/block/platform/soc.0/f9824900.sdhci/by-name/recovery	flags=backup=1
 /system		ext4	/dev/block/platform/soc.0/f9824900.sdhci/by-name/system	flags=backup=1
 /data		ext4	/dev/block/platform/soc.0/f9824900.sdhci/by-name/userdata	flags=encryptable=/dev/block/platform/soc.0/f9824900.sdhci/by-name/encrypt
+/encrypt        emmc    /dev/block/platform/soc.0/f9824900.sdhci/by-name/encrypt        flags=backup=1;display="Encryption metadata";removable
+/encryptwipe    vfat    /dev/block/platform/soc.0/f9824900.sdhci/by-name/encrypt        flags=backup=0;display="Encryption metadata";wipeduringfactoryreset;wipeingui;removable
 /cache		ext4	/dev/block/platform/soc.0/f9824900.sdhci/by-name/cache
 /firmware	vfat 	/dev/block/platform/soc.0/f9824900.sdhci/by-name/modem	flags=backup=0;display="Firmware";mounttodecrypt
 /persist-lg	ext4 	/dev/block/platform/soc.0/f9824900.sdhci/by-name/drm    	flags=backup=0;mounttodecrypt
