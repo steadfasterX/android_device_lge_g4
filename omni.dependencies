@@ -1,12 +1,6 @@
 [
 	{
 		"remote":"github",
-		"repository":"CyanogenMod/android_device_qcom_common",
-		"target_path":"device/qcom/common",
-		"revision":"cm-13.0"
-	},
-	{
-		"remote":"github",
                 "repository":"xiaolu/mkbootimg_tools",
                 "target_path":"prebuilts/devtools/mkbootimg_tools",
                 "revision":"master"

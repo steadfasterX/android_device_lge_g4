@@ -27,6 +27,10 @@ PRODUCT_PACKAGES += \
 	charger \
 	timekeep
 
+# prebuilt kernel
+#PRODUCT_COPY_FILES += \
+#    $(TARGET_PREBUILT_KERNEL):kernel
+
 # Time Zone data for Recovery
 PRODUCT_COPY_FILES += \
     bionic/libc/zoneinfo/tzdata:recovery/root/system/usr/share/zoneinfo/tzdata
