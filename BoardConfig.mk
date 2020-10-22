@@ -127,6 +127,8 @@ TARGET_LIBINIT_DEFINES_FILE := $(DEVICE_TREE)/init/libinit_g4.cpp
 SHRP_PATH := device/lge/g4
 # Maintainer name
 SHRP_MAINTAINER := steadfasterX
+# SHRP state
+SHRP_OFFICIAL := TRUE
 # Device codename
 SHRP_DEVICE_CODE := g4
 # put this 0 if device has no EDL mode
