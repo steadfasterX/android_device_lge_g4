@@ -148,7 +148,7 @@ SHRP_REC := /dev/block/bootdevice/by-name/recovery
 # Use this flag only if your device is A/B
 # SHRP_AB := true
 # Recovery Type (It can be treble,normal,SAR) [Only for About Section]
-SHRP_REC_TYPE := normal
+SHRP_REC_TYPE := Normal
 # Recovery Type (It can be A/B or A_only) [Only for About Section]
 SHRP_DEVICE_TYPE := A_Only
 # SHRP Padding Flag (Only for rounded corner devices.)
