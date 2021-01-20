@@ -154,3 +154,8 @@ SHRP_DEVICE_TYPE := A_Only
 # SHRP Padding Flag (Only for rounded corner devices.)
 SHRP_STATUSBAR_RIGHT_PADDING := 40
 SHRP_STATUSBAR_LEFT_PADDING := 40
+# SHRP Express, enables on-the-fly theme patching
+SHRP_EXPRESS := true
+# SHRP Dark mode, use this flag to have dark theme set by default
+SHRP_DARK := true
+
