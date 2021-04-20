@@ -88,11 +88,13 @@ TW_IGNORE_MISC_WIPE_DATA := true
 # do not build / include TWRP app
 TW_EXCLUDE_TWRPAPP := true
 
+# DISABLED: I do not have the time debugging it atm and it can cause 
+# serious issues keeping it half-enabled like that.
 # CRYPTO
-TW_INCLUDE_CRYPTO := true
+#TW_INCLUDE_CRYPTO := true
 # https://github.com/omnirom/android_bootable_recovery/commit/71c6c50d0d
-TW_CRYPTO_USE_SYSTEM_VOLD := qseecomd
-TARGET_KEYMASTER_WAIT_FOR_QSEE := true
+#TW_CRYPTO_USE_SYSTEM_VOLD := qseecomd
+#TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 
 # TWRP debug flags
 #TW_CRYPTO_SYSTEM_VOLD_DEBUG := true
